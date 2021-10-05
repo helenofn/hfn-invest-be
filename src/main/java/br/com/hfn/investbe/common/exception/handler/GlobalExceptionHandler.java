@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import br.com.hfn.investbe.common.dto.ResponseDTO;
 import br.com.hfn.investbe.common.exception.EmailAlreadyExistisException;
 import br.com.hfn.investbe.common.exception.HfnInvestException;
+import br.com.hfn.investbe.common.exception.InvalidUserAuthenticationException;
 import br.com.hfn.investbe.common.exception.UserNotFoundException;
 
 @ControllerAdvice
@@ -31,6 +32,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
 		return ResponseEntity.status(400).contentType(MediaType.APPLICATION_JSON).body(new ResponseDTO(400,"Bad Request","Usuário não encontrado", e.getMessage(),e.isShowMessage()));
 	}
 	
-	
+	@ExceptionHandler(value = InvalidUserAuthenticationException.class)
+	public ResponseEntity<Object> invalidUserAuthenticationException(HttpServletRequest req, InvalidUserAuthenticationException e){
+		return ResponseEntity.status(400).contentType(MediaType.APPLICATION_JSON).body(new ResponseDTO(400,"Bad Request","A autenticação falhou", e.getMessage(),e.isShowMessage()));
+	}
 	
 }

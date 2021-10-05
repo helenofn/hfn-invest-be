@@ -8,5 +8,6 @@ import br.com.hfn.investbe.commom.model.User;
 
 public interface UserRepository extends CrudRepository<User, Long>{
 
+	public Optional<User> findByEmailAndPassword(String email, String password);
 	public Optional<User> findByEmail(String email);
 }

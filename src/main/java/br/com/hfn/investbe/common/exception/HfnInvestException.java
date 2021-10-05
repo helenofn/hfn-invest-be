@@ -1,8 +1,10 @@
 package br.com.hfn.investbe.common.exception;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class HfnInvestException extends RuntimeException{
 
 	private static final long serialVersionUID = 4530018982793712700L;
