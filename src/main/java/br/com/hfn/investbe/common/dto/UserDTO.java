@@ -1,5 +1,6 @@
 package br.com.hfn.investbe.common.dto;
 
+import br.com.hfn.investbe.commom.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,4 +16,13 @@ public class UserDTO {
 	private Long id;
 	private String email;
 	private String password;
+	private UserStatusDTO status;
+	
+	public UserDTO(User obj) {
+		super();
+		this.id = obj.getId();
+		this.name = obj.getName();
+		this.email = obj.getEmail();
+		this.status = new UserStatusDTO(obj.getStatus());
+	}
 }

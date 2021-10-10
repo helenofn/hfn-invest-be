@@ -21,7 +21,9 @@ import br.com.hfn.investbe.commom.security.dto.AuthenticationRequestDTO;
 import br.com.hfn.investbe.commom.security.dto.AuthenticationResponseDTO;
 import br.com.hfn.investbe.commom.security.enums.RoleEnum;
 import br.com.hfn.investbe.commom.security.provider.JwtTokenProvider;
+import br.com.hfn.investbe.commom.security.service.AuthenticationService;
 import br.com.hfn.investbe.common.dto.UserDTO;
+import br.com.hfn.investbe.common.enums.UserStatusEnum;
 import br.com.hfn.investbe.common.transformer.UserTransfomer;
 import br.com.hfn.investbe.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -32,21 +34,23 @@ import lombok.RequiredArgsConstructor;
 public class AuthController {
 
 	private final UserService userService;
+	private final AuthenticationService authenticationService;
 	private final JwtTokenProvider jwtTokenProvider;
 	
 	@PostMapping(path = "/signIn")
 	public ResponseEntity<UserDTO> insert(@RequestBody UserDTO userDto){
 		User user = UserTransfomer.getModelFromDto(userDto);
 		user.getRoles().addAll(Arrays.asList(RoleEnum.COMMOM.getModel()));
+		user.setStatus(UserStatusEnum.ATIVO.getModel());
 		user = userService.save(user);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
 		return ResponseEntity.created(uri).body(UserTransfomer.getDtoFromModel(user));
 	}
 	
-	@PostMapping
+	@PostMapping(path = "/logIn")
 	public ResponseEntity<Map<Object, Object>> logIn(@Valid @RequestBody AuthenticationRequestDTO authenticationRequest){
 		
-		AuthenticationResponseDTO auth = userService.authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+		AuthenticationResponseDTO auth = authenticationService.authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 		String token = jwtTokenProvider.createToken(authenticationRequest.getUsername(), auth.getAuthorities());
 		
 		Map<Object, Object> model = new HashMap<>();

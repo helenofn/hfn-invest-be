@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -43,6 +44,9 @@ public class User implements Serializable{
 	@Column(name="cript_pass", length = 60)
 	private String password;
 	private String name;
+	@ManyToOne
+	@JoinColumn(name = "code")
+	private UserStatus status;
 	
 	@ManyToMany
 	@JoinTable(	name = "USER_ROLE",

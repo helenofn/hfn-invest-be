@@ -1,11 +1,15 @@
 package br.com.hfn.investbe.user.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.hfn.investbe.commom.model.User;
 import br.com.hfn.investbe.common.dto.UserDTO;
 import br.com.hfn.investbe.common.transformer.UserTransfomer;
 import br.com.hfn.investbe.user.service.UserService;
@@ -23,4 +27,11 @@ public class UserController {
 		UserDTO userDto = UserTransfomer.getDtoFromModel(userService.findById(id));
         return ResponseEntity.ok().body(userDto);
     }
+	
+	@GetMapping
+	public ResponseEntity<List<UserDTO>>findAll(){
+		List<User> lista = userService.findAll();
+		List<UserDTO> listDTO = lista.stream().map(obj -> new UserDTO(obj)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDTO);	
+	}
 }
