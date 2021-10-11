@@ -20,9 +20,11 @@ public class UserDTO {
 	
 	public UserDTO(User obj) {
 		super();
-		this.id = obj.getId();
-		this.name = obj.getName();
-		this.email = obj.getEmail();
-		this.status = new UserStatusDTO(obj.getStatus());
+		if(null!=obj) {
+			this.id = obj.getId();
+			this.name = obj.getName();
+			this.email = obj.getEmail();
+			this.status = new UserStatusDTO(obj.getStatus());			
+		}
 	}
 }

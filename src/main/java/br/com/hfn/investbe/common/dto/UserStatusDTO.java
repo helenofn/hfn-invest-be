@@ -16,8 +16,10 @@ public class UserStatusDTO {
 	private String name;
 	
 	public UserStatusDTO(UserStatus obj){
-		this.code = obj.getCode();
-		this.name = obj.getName();
+		if(null!=obj) {
+			this.code = obj.getCode();
+			this.name = obj.getName();			
+		}
 	}
 	
 }

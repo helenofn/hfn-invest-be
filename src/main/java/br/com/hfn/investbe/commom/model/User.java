@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.com.hfn.investbe.common.dto.UserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -53,5 +54,14 @@ public class User implements Serializable{
 				joinColumns = {@JoinColumn(name = "user_id")}, 
 				inverseJoinColumns = {@JoinColumn(name = "role_id")})
 	private List<Role> roles = new ArrayList<Role>();
+	
+	public User(UserDTO userDto) {
+		super();
+		this.id = userDto.getId();
+		this.email = userDto.getEmail();
+		this.name = userDto.getName();
+		this.password = userDto.getPassword();
+		this.status = new UserStatus(userDto.getStatus());
+	}
 	
 }

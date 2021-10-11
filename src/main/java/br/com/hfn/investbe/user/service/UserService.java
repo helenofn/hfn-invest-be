@@ -2,6 +2,9 @@ package br.com.hfn.investbe.user.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import br.com.hfn.investbe.commom.model.User;
@@ -33,7 +36,20 @@ public class UserService{
 		return userRepository.save(user);
 	}
 	
+	public User update(User user) {
+		User newObj = findById(user.getId());
+		newObj.setName(user.getName());
+		newObj.setEmail(user.getEmail());
+		newObj.setStatus(user.getStatus());
+		return userRepository.save(newObj);
+	}
+	
 	public List<User> findAll(){
 		return userRepository.findAll();
+	}
+	
+	public Page<User> findPage(Integer page, Integer linesPerPage, String direction, String orderBy){
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return userRepository.findAll(pageRequest);
 	}
 }

@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import br.com.hfn.investbe.common.dto.UserStatusDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,4 +23,9 @@ public class UserStatus {
 	private Integer code;
 	@Column(name="name", length = 60)
 	private String name;
+	
+	public UserStatus(UserStatusDTO dto) {
+		this.code = dto.getCode();
+		this.name = dto.getName();
+	}
 }
