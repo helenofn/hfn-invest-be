@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,14 +42,15 @@ public class UserController {
         return ResponseEntity.ok().body(userDto);
     }
 	
-	@GetMapping(value = "/page")
+	@PostMapping(value = "/page")
 	public ResponseEntity<Page<UserDTO>> findPage(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "15") Integer linesPerPage,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction,
-			@RequestParam(value = "orderBy", defaultValue = "name") String orderBy){
+			@RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
+			@RequestBody UserDTO filtro){
 		
-		Page<User> list = userService.findPage(page, linesPerPage, direction, orderBy);
+		Page<User> list = userService.findPage(page, linesPerPage, direction, orderBy, filtro);
 		Page<UserDTO> listDto = list.map(obj -> new UserDTO(obj));
         return ResponseEntity.ok().body(listDto);
 		

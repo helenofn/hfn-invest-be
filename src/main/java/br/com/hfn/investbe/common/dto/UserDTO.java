@@ -1,5 +1,7 @@
 package br.com.hfn.investbe.common.dto;
 
+import java.io.Serializable;
+
 import br.com.hfn.investbe.commom.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,8 +12,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
-
+public class UserDTO implements Serializable{
+	private static final long serialVersionUID = -1981657228272235064L;
+	
 	private String name;
 	private Long id;
 	private String email;
