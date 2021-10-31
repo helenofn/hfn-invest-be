@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import br.com.hfn.investbe.commom.model.UserStatus;
-import br.com.hfn.investbe.commom.repository.UserStatusRepository;
+import br.com.hfn.investbe.model.UserStatus;
+import br.com.hfn.investbe.repository.UserStatusRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service

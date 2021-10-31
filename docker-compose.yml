@@ -1,0 +1,14 @@
+version: "3.1"
+services:
+  db:
+    image: mysql
+    container_name: mysql_luleke_invest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+    - "3306:3306"
+    volumes:
+    - luleke_invest_data:/var/lib/mysql_luleke_invest
+
+volumes:
+  luleke_invest_data:
