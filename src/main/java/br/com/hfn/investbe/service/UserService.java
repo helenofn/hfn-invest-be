@@ -44,6 +44,7 @@ public class UserService extends UserSpecification{
 		newObj.setName(user.getName());
 		newObj.setEmail(user.getEmail());
 		newObj.setStatus(user.getStatus());
+		newObj.setRoles(user.getRoles());
 		return userRepository.save(newObj);
 	}
 	

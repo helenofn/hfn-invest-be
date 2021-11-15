@@ -1,6 +1,8 @@
 package br.com.hfn.investbe.dto;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import br.com.hfn.investbe.model.User;
 import lombok.AllArgsConstructor;
@@ -20,6 +22,7 @@ public class UserDTO implements Serializable{
 	private String email;
 	private String password;
 	private UserStatusDTO status;
+	private List<RoleDTO> roles;
 	
 	public UserDTO(User obj) {
 		super();
@@ -27,7 +30,8 @@ public class UserDTO implements Serializable{
 			this.id = obj.getId();
 			this.name = obj.getName();
 			this.email = obj.getEmail();
-			this.status = new UserStatusDTO(obj.getStatus());			
+			this.status = new UserStatusDTO(obj.getStatus());
+			this.roles = obj.getRoles().stream().map(o -> new RoleDTO(o)).collect(Collectors.toList());
 		}
 	}
 }

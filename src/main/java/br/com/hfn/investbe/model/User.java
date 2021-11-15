@@ -3,6 +3,7 @@ package br.com.hfn.investbe.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -62,6 +63,8 @@ public class User implements Serializable{
 		this.name = userDto.getName();
 		this.password = userDto.getPassword();
 		this.status = new UserStatus(userDto.getStatus());
+		this.roles = new ArrayList<Role>();
+		this.roles.addAll(userDto.getRoles().stream().map(o -> new Role(o)).collect(Collectors.toList()));
 	}
 	
 }
