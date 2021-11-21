@@ -1,8 +1,9 @@
 package br.com.hfn.investbe.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,8 +26,9 @@ public class FinancialAssetQuotePK implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
-	@JoinColumn(name = "ticker_symbol_id")
+	@JoinColumn(name = "cseq_financial_asset")
 	private FinancialAsset financialAsset;
-	private Date tradedDate;
+	@Column(name="dh_trade")
+	private LocalDate tradedDate;
 	
 }

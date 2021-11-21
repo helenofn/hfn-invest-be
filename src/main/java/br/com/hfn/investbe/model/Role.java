@@ -15,19 +15,21 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name="ROLE")
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name="ROLE")
 public class Role implements Serializable{
 	
 	private static final long serialVersionUID = 8609711534395269143L;
 	
 	@Id
+	@Column(name="cd_role", length = 3)
 	private Integer code;
 	
-	@Column(name="name", unique=true, length = 60)
+	@Column(name="ds_name", unique=true, length = 50)
 	private String name;
 	
 	@ManyToMany(mappedBy = "roles")

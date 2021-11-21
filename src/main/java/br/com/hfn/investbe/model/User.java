@@ -27,33 +27,39 @@ import lombok.NoArgsConstructor;
  * @author Heleno
  *
  */
-@Entity
-@Table(name="USER")
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Entity
+@Table(name="USER")
 public class User implements Serializable{
 
 	private static final long serialVersionUID = 1686965569693368471L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="cseq_user", length = 22)
 	private Long id;
 	
-	@Column(name="email", unique=true)
+	@Column(name="ds_email", unique=true)
 	private String email;
-	@Column(name="cript_pass", length = 60)
+	
+	@Column(name="ds_cript_pass", length = 60)
 	private String password;
+	
+	@Column(name="ds_name", length = 100)
 	private String name;
+	
 	@ManyToOne
-	@JoinColumn(name = "code")
+	@JoinColumn(name = "cd_user_status")
 	private UserStatus status;
 	
 	@ManyToMany
 	@JoinTable(	name = "USER_ROLE",
-				joinColumns = {@JoinColumn(name = "user_id")}, 
-				inverseJoinColumns = {@JoinColumn(name = "role_id")})
+				joinColumns = {@JoinColumn(name = "cseq_user")}, 
+				inverseJoinColumns = {@JoinColumn(name = "cd_role")})
 	private List<Role> roles = new ArrayList<Role>();
 	
 	public User(UserDTO userDto) {

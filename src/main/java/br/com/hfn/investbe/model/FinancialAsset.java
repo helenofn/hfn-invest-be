@@ -1,14 +1,16 @@
 package br.com.hfn.investbe.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
-import javax.persistence.EmbeddedId;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,24 +21,35 @@ import lombok.NoArgsConstructor;
  * @author hefreita
  *
  */
-@Entity
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name="FINANCIAL_ASSET")
 public class FinancialAsset implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	@JsonIgnore
-	@EmbeddedId
-	private FinancialAssetPK id = new FinancialAssetPK();
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "cseq_financial_asset", length = 22)
+	private Long id;
+	
+	@Column(name = "ds_ticker", length = 50)
+	private String ticker;
 	
 	@ManyToOne
-	@JoinColumn(name = "company_id")
+	@JoinColumn(name = "cseq_company")
 	private Company company;
 	
 	@ManyToOne
-	@JoinColumn(name = "financial_asset_category_id")
+	@JoinColumn(name = "cseq_company_broke")
+	private Company broke;
+	
+	@ManyToOne
+	@JoinColumn(name = "cseq_financial_asset_category")
 	private FinancialAssetCategory financialAssetCategory;
 	
-	private Date lastUpadate;
+	@Column(name = "dh_last_update")
+	private LocalDate lastUpadate;
 }

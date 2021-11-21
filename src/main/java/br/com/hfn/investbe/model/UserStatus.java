@@ -11,17 +11,20 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name="USER_STATUS")
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Entity
+@Table(name="USER_STATUS")
 public class UserStatus {
 
 	@Id
+	@Column(name="cd_user_status", length = 2)
 	private Integer code;
-	@Column(name="name", length = 60)
+	
+	@Column(name="ds_name", length = 50)
 	private String name;
 	
 	public UserStatus(UserStatusDTO dto) {

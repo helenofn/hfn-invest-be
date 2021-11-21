@@ -57,9 +57,9 @@ public class UserService extends UserSpecification{
 		
 		Specification<User> specification = 
 				Specification
-					.where(StringUtil.isEmpty(filtro.getEmail()) ? null : emailLike(filtro.getEmail()))
-					.and(StringUtil.isEmpty(filtro.getName()) ? null : nameLike(filtro.getName()))
-					.and(null == filtro.getStatus() || null == filtro.getStatus().getCode() ? null : statusCodeEquals(filtro.getStatus().getCode()));
+					.where(emailLike(filtro.getEmail()))
+					.and(nameLike(filtro.getName()))
+					.and(statusCodeEquals(null==filtro.getStatus()?null:filtro.getStatus().getCode()));
 		
 		return userRepository.findAll(specification,pageRequest);
 	}
