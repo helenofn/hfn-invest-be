@@ -14,7 +14,6 @@ import br.com.hfn.investbe.model.User;
 import br.com.hfn.investbe.repository.UserRepository;
 import br.com.hfn.investbe.repository.specification.UserSpecification;
 import br.com.hfn.investbe.util.GenerateHashPasswordUtil;
-import br.com.hfn.investbe.util.StringUtil;
 import lombok.RequiredArgsConstructor;
 
 @Service
