@@ -40,7 +40,7 @@ public class AuthController {
 	
 	@PostMapping(path = "/signUp")
 	public ResponseEntity<UserDTO> insert(@Valid @RequestBody UserNewDTO userDto){
-		User user = UserTransfomer.getModelFromNewDto(userDto);
+		User user = new User(userDto);
 		user.getRoles().addAll(Arrays.asList(RoleEnum.COMMOM.getModel()));
 		user.setStatus(UserStatusEnum.ATIVO.getModel());
 		user = userService.save(user);

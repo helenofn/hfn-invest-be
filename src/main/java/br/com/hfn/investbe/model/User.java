@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.com.hfn.investbe.dto.UserDTO;
+import br.com.hfn.investbe.dto.UserNewDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -73,4 +74,12 @@ public class User implements Serializable{
 		this.roles.addAll(userDto.getRoles().stream().map(o -> new Role(o)).collect(Collectors.toList()));
 	}
 	
+	public User(UserNewDTO userDto) {
+		super();
+		this.email = userDto.getEmail();
+		this.name = userDto.getName();
+		this.password = userDto.getPassword();
+		this.roles = new ArrayList<Role>();
+	}
+
 }

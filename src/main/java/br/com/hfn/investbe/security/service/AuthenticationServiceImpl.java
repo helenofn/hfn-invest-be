@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
+import br.com.hfn.investbe.dto.UserDTO;
 import br.com.hfn.investbe.exception.HfnInvestException;
 import br.com.hfn.investbe.model.Role;
 import br.com.hfn.investbe.model.User;
@@ -39,8 +40,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 			if(null==roles || roles.isEmpty()) {
 				throw new HfnInvestException("Usuário não possui roles associadas",true);
 			}
-			
-			return new AuthenticationResponseDTO(username,password, roles, UserTransfomer.getDtoFromModel(user));
+			return new AuthenticationResponseDTO(username,password, roles, new UserDTO(user));
 			
 		}else {
 			log.error("Usuário ou senha não informados");

@@ -9,6 +9,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import br.com.hfn.investbe.dto.UserDTO;
+import br.com.hfn.investbe.exception.HfnInvestException;
 import br.com.hfn.investbe.exception.ObjectNotFoundException;
 import br.com.hfn.investbe.model.User;
 import br.com.hfn.investbe.repository.UserRepository;
@@ -31,9 +32,9 @@ public class UserService extends UserSpecification{
 	}
 		
 	public User save(User user) {
-		/*if(null!=findByEmail(user.getEmail())) {
-			throw new EmailAlreadyExistisException("O Usuário já existe em nossa base de dados.",true);
-		}*/
+		if(null!=findByEmail(user.getEmail())) {
+			throw new HfnInvestException("O Usuário já existe em nossa base de dados.",true);
+		}
 		user.setPassword(GenerateHashPasswordUtil.getHasFromPassword(user.getPassword()));
 		return userRepository.save(user);
 	}
