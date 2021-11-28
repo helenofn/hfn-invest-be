@@ -26,7 +26,6 @@ import br.com.hfn.investbe.security.enums.RoleEnum;
 import br.com.hfn.investbe.security.provider.JwtTokenProvider;
 import br.com.hfn.investbe.security.service.AuthenticationService;
 import br.com.hfn.investbe.service.UserService;
-import br.com.hfn.investbe.transformer.UserTransfomer;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -45,7 +44,7 @@ public class AuthController {
 		user.setStatus(UserStatusEnum.ATIVO.getModel());
 		user = userService.save(user);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
-		return ResponseEntity.created(uri).body(UserTransfomer.getDtoFromModel(user));
+		return ResponseEntity.created(uri).body(new UserDTO(user));
 	}
 	
 	@PostMapping(path = "/logIn")

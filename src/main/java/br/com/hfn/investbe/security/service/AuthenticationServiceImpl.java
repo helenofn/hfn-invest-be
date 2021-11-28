@@ -13,7 +13,6 @@ import br.com.hfn.investbe.model.Role;
 import br.com.hfn.investbe.model.User;
 import br.com.hfn.investbe.repository.UserRepository;
 import br.com.hfn.investbe.security.dto.AuthenticationResponseDTO;
-import br.com.hfn.investbe.transformer.UserTransfomer;
 import br.com.hfn.investbe.util.GenerateHashPasswordUtil;
 import br.com.hfn.investbe.util.StringUtil;
 import lombok.RequiredArgsConstructor;

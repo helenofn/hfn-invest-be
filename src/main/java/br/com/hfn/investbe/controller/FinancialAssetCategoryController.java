@@ -12,7 +12,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.hfn.investbe.dominio.service.FinancialAssetCategoryService;
 import br.com.hfn.investbe.dto.FinancialAssetCategoryDTO;
 import br.com.hfn.investbe.model.FinancialAssetCategory;
-import br.com.hfn.investbe.transformer.FinancialAssetCategoryTransformer;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -24,11 +23,11 @@ public class FinancialAssetCategoryController {
 	
 	@PostMapping
 	public ResponseEntity<FinancialAssetCategoryDTO> save(@RequestBody FinancialAssetCategoryDTO dto){
-		FinancialAssetCategory model = FinancialAssetCategoryTransformer.getModelFromDto(dto);
+		FinancialAssetCategory model = new FinancialAssetCategory(dto);
 		model = financialAssetCategoryService.save(model);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(model.getId()).toUri();
-		return ResponseEntity.created(uri).body(FinancialAssetCategoryTransformer.getDtoFromModel(model));
+		return ResponseEntity.created(uri).body(new FinancialAssetCategoryDTO(model));
 	}
 	
-
+	
 }
