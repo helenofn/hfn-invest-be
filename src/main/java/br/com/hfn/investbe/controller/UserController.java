@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.hfn.investbe.dto.UserDTO;
 import br.com.hfn.investbe.model.User;
+import br.com.hfn.investbe.request.dto.FilterUserRequestDTO;
+import br.com.hfn.investbe.request.dto.UserRequestDTO;
+import br.com.hfn.investbe.response.dto.UserResponseDTO;
 import br.com.hfn.investbe.service.UserService;
 import lombok.RequiredArgsConstructor;
 
@@ -27,39 +30,40 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 
 	private final UserService userService;
+	private final ModelMapper modelMapper;
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Void> update(@Valid @RequestBody UserDTO userDto, @PathVariable Long id){
-		User user = new User(userDto);//UserTransfomer.getModelFromDto(userDto);
+	public ResponseEntity<Void> update(@Valid @RequestBody UserRequestDTO userDto, @PathVariable Long id){
+		User user = modelMapper.map(userDto, User.class);
 		user.setId(id);
 		userService.update(user);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@GetMapping(value = "/{id}")
-    public ResponseEntity<UserDTO> findById(@PathVariable Long id){
-		UserDTO userDto = new UserDTO(userService.findById(id));//UserTransfomer.getDtoFromModel(userService.findById(id));
+    public ResponseEntity<UserResponseDTO> findById(@PathVariable Long id){
+		UserResponseDTO userDto = modelMapper.map(userService.findById(id), UserResponseDTO.class);//UserTransfomer.getDtoFromModel(userService.findById(id));
         return ResponseEntity.ok().body(userDto);
     }
 	
 	@PostMapping(value = "/page")
-	public ResponseEntity<Page<UserDTO>> findPage(
+	public ResponseEntity<Page<UserResponseDTO>> findPage(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "15") Integer linesPerPage,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction,
 			@RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
-			@RequestBody UserDTO filtro){
+			@RequestBody FilterUserRequestDTO filtro){
 		
 		Page<User> list = userService.findPage(page, linesPerPage, direction, orderBy, filtro);
-		Page<UserDTO> listDto = list.map(obj -> new UserDTO(obj));
+		Page<UserResponseDTO> listDto = list.map(obj -> modelMapper.map(obj, UserResponseDTO.class));
         return ResponseEntity.ok().body(listDto);
 		
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<UserDTO>>findAll(){
+	public ResponseEntity<List<UserResponseDTO>>findAll(){
 		List<User> lista = userService.findAll();
-		List<UserDTO> listDTO = lista.stream().map(obj -> new UserDTO(obj)).collect(Collectors.toList());
+		List<UserResponseDTO> listDTO = lista.stream().map(obj ->  modelMapper.map(obj, UserResponseDTO.class)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);	
 	}
 }

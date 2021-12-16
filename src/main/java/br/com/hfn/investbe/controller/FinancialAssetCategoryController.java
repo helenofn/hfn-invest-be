@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.hfn.investbe.dominio.service.FinancialAssetCategoryService;
-import br.com.hfn.investbe.dto.FinancialAssetCategoryDTO;
 import br.com.hfn.investbe.model.FinancialAssetCategory;
+import br.com.hfn.investbe.response.dto.FinancialAssetCategoryResponseDTO;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -22,11 +22,11 @@ public class FinancialAssetCategoryController {
 	private final FinancialAssetCategoryService financialAssetCategoryService;
 	
 	@PostMapping
-	public ResponseEntity<FinancialAssetCategoryDTO> save(@RequestBody FinancialAssetCategoryDTO dto){
+	public ResponseEntity<FinancialAssetCategoryResponseDTO> save(@RequestBody FinancialAssetCategoryResponseDTO dto){
 		FinancialAssetCategory model = new FinancialAssetCategory(dto);
 		model = financialAssetCategoryService.save(model);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(model.getId()).toUri();
-		return ResponseEntity.created(uri).body(new FinancialAssetCategoryDTO(model));
+		return ResponseEntity.created(uri).body(new FinancialAssetCategoryResponseDTO(model));
 	}
 	
 	

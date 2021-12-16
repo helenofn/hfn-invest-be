@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import br.com.hfn.investbe.dto.RoleDTO;
+import br.com.hfn.investbe.response.dto.RoleResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,7 +35,7 @@ public class Role implements Serializable{
 	@ManyToMany(mappedBy = "roles")
 	private List<User> users = new ArrayList<>();
 	
-	public Role(RoleDTO dto) {
+	public Role(RoleResponseDTO dto) {
 		this.code = dto.getCode();
 		this.name = dto.getName();
 	}

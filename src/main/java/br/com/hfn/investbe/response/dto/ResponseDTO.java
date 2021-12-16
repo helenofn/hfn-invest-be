@@ -1,4 +1,4 @@
-package br.com.hfn.investbe.dto;
+package br.com.hfn.investbe.response.dto;
 
 import java.io.Serializable;
 

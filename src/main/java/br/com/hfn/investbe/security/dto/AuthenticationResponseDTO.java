@@ -5,7 +5,7 @@ import java.util.Collection;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
-import br.com.hfn.investbe.dto.UserDTO;
+import br.com.hfn.investbe.response.dto.UserResponseDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,9 +15,9 @@ public class AuthenticationResponseDTO extends UsernamePasswordAuthenticationTok
 
 	private static final long serialVersionUID = -4742465532751221671L;
 	
-	private UserDTO user;
+	private UserResponseDTO user;
 	
-	public AuthenticationResponseDTO(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities, UserDTO user) {
+	public AuthenticationResponseDTO(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities, UserResponseDTO user) {
 		super(principal, credentials, authorities);
 		this.user = user;
 	}

@@ -1,7 +1,7 @@
 package br.com.hfn.investbe.enums;
 
-import br.com.hfn.investbe.dto.UserStatusDTO;
 import br.com.hfn.investbe.model.UserStatus;
+import br.com.hfn.investbe.response.dto.UserStatusResponseDTO;
 import lombok.Getter;
 
 @Getter
@@ -12,13 +12,13 @@ public enum UserStatusEnum {
 	
 	private Integer code;
 	private String name;
-	private UserStatusDTO dto;
+	private UserStatusResponseDTO dto;
 	private UserStatus model;
 	
 	private UserStatusEnum(Integer code, String name) {
 		this.code = code;
 		this.name = name;
-		this.dto = new UserStatusDTO(code, name);
+		this.dto = new UserStatusResponseDTO(code, name);
 		this.model = new UserStatus(code, name);
 	}
 }

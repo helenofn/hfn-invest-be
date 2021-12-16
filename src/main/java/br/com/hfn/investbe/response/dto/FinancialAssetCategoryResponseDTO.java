@@ -1,4 +1,4 @@
-package br.com.hfn.investbe.dto;
+package br.com.hfn.investbe.response.dto;
 
 import java.io.Serializable;
 
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FinancialAssetCategoryDTO implements Serializable{
+public class FinancialAssetCategoryResponseDTO implements Serializable{
 	
 	private static final long serialVersionUID = 5682656261061078667L;
 
@@ -20,7 +20,7 @@ public class FinancialAssetCategoryDTO implements Serializable{
 	private String name;
 	private String description;
 	
-	public FinancialAssetCategoryDTO(FinancialAssetCategory model) {
+	public FinancialAssetCategoryResponseDTO(FinancialAssetCategory model) {
 		if(null!=model) {
 			this.id = model.getId();
 			this.name = model.getName();

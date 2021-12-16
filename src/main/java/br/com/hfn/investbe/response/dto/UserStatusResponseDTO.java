@@ -1,4 +1,4 @@
-package br.com.hfn.investbe.dto;
+package br.com.hfn.investbe.response.dto;
 
 import java.io.Serializable;
 
@@ -12,14 +12,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserStatusDTO implements Serializable{
+public class UserStatusResponseDTO implements Serializable{
 	
 	private static final long serialVersionUID = 2359969994699082817L;
 	
 	private Integer code;
 	private String name;
 	
-	public UserStatusDTO(UserStatus obj){
+	public UserStatusResponseDTO(UserStatus obj){
 		if(null!=obj) {
 			this.code = obj.getCode();
 			this.name = obj.getName();			

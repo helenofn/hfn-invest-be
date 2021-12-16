@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.hfn.investbe.dto.UserDTO;
-import br.com.hfn.investbe.dto.UserNewDTO;
 import br.com.hfn.investbe.enums.UserStatusEnum;
 import br.com.hfn.investbe.model.User;
+import br.com.hfn.investbe.request.dto.NewUserRequestDTO;
+import br.com.hfn.investbe.response.dto.UserResponseDTO;
 import br.com.hfn.investbe.security.dto.AuthenticationRequestDTO;
 import br.com.hfn.investbe.security.dto.AuthenticationResponseDTO;
 import br.com.hfn.investbe.security.enums.RoleEnum;
@@ -36,15 +37,16 @@ public class AuthController {
 	private final UserService userService;
 	private final AuthenticationService authenticationService;
 	private final JwtTokenProvider jwtTokenProvider;
+	private final ModelMapper modelMapper;
 	
 	@PostMapping(path = "/signUp")
-	public ResponseEntity<UserDTO> insert(@Valid @RequestBody UserNewDTO userDto){
-		User user = new User(userDto);
+	public ResponseEntity<UserResponseDTO> insert(@Valid @RequestBody NewUserRequestDTO userDto){
+		User user = modelMapper.map(userDto, User.class);
 		user.getRoles().addAll(Arrays.asList(RoleEnum.COMMOM.getModel()));
 		user.setStatus(UserStatusEnum.ATIVO.getModel());
 		user = userService.save(user);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
-		return ResponseEntity.created(uri).body(new UserDTO(user));
+		return ResponseEntity.created(uri).body(modelMapper.map(user, UserResponseDTO.class));
 	}
 	
 	@PostMapping(path = "/logIn")

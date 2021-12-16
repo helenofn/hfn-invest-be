@@ -1,4 +1,4 @@
-package br.com.hfn.investbe.dto;
+package br.com.hfn.investbe.request.dto;
 
 import java.io.Serializable;
 
@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @UserInsert
-public class UserNewDTO implements Serializable{
+public class NewUserRequestDTO implements Serializable{
 
 	private static final long serialVersionUID = -8739169933838699838L;
 

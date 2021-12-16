@@ -3,7 +3,6 @@ package br.com.hfn.investbe.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,8 +15,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import br.com.hfn.investbe.dto.UserDTO;
-import br.com.hfn.investbe.dto.UserNewDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -62,24 +59,5 @@ public class User implements Serializable{
 				joinColumns = {@JoinColumn(name = "cseq_user")}, 
 				inverseJoinColumns = {@JoinColumn(name = "cd_role")})
 	private List<Role> roles = new ArrayList<Role>();
-	
-	public User(UserDTO userDto) {
-		super();
-		this.id = userDto.getId();
-		this.email = userDto.getEmail();
-		this.name = userDto.getName();
-		this.password = userDto.getPassword();
-		this.status = new UserStatus(userDto.getStatus());
-		this.roles = new ArrayList<Role>();
-		this.roles.addAll(userDto.getRoles().stream().map(o -> new Role(o)).collect(Collectors.toList()));
-	}
-	
-	public User(UserNewDTO userDto) {
-		super();
-		this.email = userDto.getEmail();
-		this.name = userDto.getName();
-		this.password = userDto.getPassword();
-		this.roles = new ArrayList<Role>();
-	}
 
 }
