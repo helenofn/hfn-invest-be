@@ -2,6 +2,7 @@ package br.com.hfn.investbe.controller;
 
 import java.net.URI;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,13 +21,14 @@ import lombok.RequiredArgsConstructor;
 public class FinancialAssetCategoryController {
 
 	private final FinancialAssetCategoryService financialAssetCategoryService;
+	private final ModelMapper modelMapper;
 	
 	@PostMapping
 	public ResponseEntity<FinancialAssetCategoryResponseDTO> save(@RequestBody FinancialAssetCategoryResponseDTO dto){
 		FinancialAssetCategory model = new FinancialAssetCategory(dto);
 		model = financialAssetCategoryService.save(model);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(model.getId()).toUri();
-		return ResponseEntity.created(uri).body(new FinancialAssetCategoryResponseDTO(model));
+		return ResponseEntity.created(uri).body(modelMapper.map(model, FinancialAssetCategoryResponseDTO.class));
 	}
 	
 	

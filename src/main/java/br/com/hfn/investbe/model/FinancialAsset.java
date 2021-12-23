@@ -35,16 +35,16 @@ public class FinancialAsset implements Serializable{
 	@Column(name = "cseq_financial_asset", length = 22)
 	private Long id;
 	
+	@ManyToOne
+	@JoinColumn(name = "cseq_stock_exchange")
+	private StockExchange stockExchange;
+	
 	@Column(name = "ds_ticker", length = 50)
 	private String ticker;
 	
 	@ManyToOne
 	@JoinColumn(name = "cseq_company")
 	private Company company;
-	
-	@ManyToOne
-	@JoinColumn(name = "cseq_company_broke")
-	private Company broke;
 	
 	@ManyToOne
 	@JoinColumn(name = "cseq_financial_asset_category")
