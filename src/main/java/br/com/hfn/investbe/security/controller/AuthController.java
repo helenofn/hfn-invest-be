@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.hfn.investbe.enums.UserStatusEnum;
-import br.com.hfn.investbe.model.User;
+import br.com.hfn.investbe.model.user.User;
 import br.com.hfn.investbe.request.dto.NewUserRequestDTO;
 import br.com.hfn.investbe.response.dto.UserResponseDTO;
 import br.com.hfn.investbe.security.dto.AuthenticationRequestDTO;

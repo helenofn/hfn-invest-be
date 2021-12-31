@@ -2,7 +2,7 @@ package br.com.hfn.investbe.repository.specification;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import br.com.hfn.investbe.model.User;
+import br.com.hfn.investbe.model.user.User;
 import br.com.hfn.investbe.util.StringUtil;
 
 public class UserSpecification {

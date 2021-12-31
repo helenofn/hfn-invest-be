@@ -21,7 +21,6 @@ import lombok.NoArgsConstructor;
  * @author hefreita
  *
  */
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

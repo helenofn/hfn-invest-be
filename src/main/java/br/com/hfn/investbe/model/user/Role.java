@@ -1,4 +1,4 @@
-package br.com.hfn.investbe.model;
+package br.com.hfn.investbe.model.user;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,7 +15,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
+/**
+ * Role entity - Maps access to Role data
+ * @author Heleno
+ *
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

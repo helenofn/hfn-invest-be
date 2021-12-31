@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.hfn.investbe.dominio.service.DominioService;
 import br.com.hfn.investbe.exception.ObjectNotFoundException;
-import br.com.hfn.investbe.model.Role;
-import br.com.hfn.investbe.model.UserStatus;
+import br.com.hfn.investbe.model.user.Role;
+import br.com.hfn.investbe.model.user.UserStatus;
 import br.com.hfn.investbe.response.dto.RoleResponseDTO;
 import br.com.hfn.investbe.response.dto.UserStatusResponseDTO;
 import lombok.RequiredArgsConstructor;

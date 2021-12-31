@@ -1,4 +1,4 @@
-package br.com.hfn.investbe.model;
+package br.com.hfn.investbe.model.user;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +11,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
+/**
+ * User UserStatus - Maps access to UserStatus data
+ * @author Heleno
+ *
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

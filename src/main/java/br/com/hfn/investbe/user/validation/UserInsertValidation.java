@@ -7,7 +7,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import br.com.hfn.investbe.exception.resource.FieldMessage;
-import br.com.hfn.investbe.model.User;
+import br.com.hfn.investbe.model.user.User;
 import br.com.hfn.investbe.request.dto.NewUserRequestDTO;
 import br.com.hfn.investbe.service.UserService;
 import br.com.hfn.investbe.util.StringUtil;

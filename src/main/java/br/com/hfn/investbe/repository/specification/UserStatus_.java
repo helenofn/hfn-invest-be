@@ -4,8 +4,8 @@ import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-import br.com.hfn.investbe.model.User;
-import br.com.hfn.investbe.model.UserStatus;
+import br.com.hfn.investbe.model.user.User;
+import br.com.hfn.investbe.model.user.UserStatus;
 
 @Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
 @StaticMetamodel(User.class)

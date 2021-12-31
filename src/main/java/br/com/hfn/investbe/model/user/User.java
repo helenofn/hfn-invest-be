@@ -1,4 +1,4 @@
-package br.com.hfn.investbe.model;
+package br.com.hfn.investbe.model.user;
 
 import java.io.Serializable;
 import java.util.ArrayList;

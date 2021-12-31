@@ -7,12 +7,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.com.hfn.investbe.model.adress.Adress;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * StockExchange entity - Maps access to StockExchange data
+ * @author Heleno
+ *
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,4 +38,8 @@ public class StockExchange implements Serializable{
 	private String name;
 	@Column(name = "ds_ein", length = 20)
 	private String ein;
+	
+	@ManyToOne
+	@JoinColumn(name = "cseq_adress")
+	private Adress mainAdress;
 }

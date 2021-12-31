@@ -9,8 +9,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import br.com.hfn.investbe.exception.HfnInvestException;
-import br.com.hfn.investbe.model.Role;
-import br.com.hfn.investbe.model.User;
+import br.com.hfn.investbe.model.user.Role;
+import br.com.hfn.investbe.model.user.User;
 import br.com.hfn.investbe.repository.UserRepository;
 import br.com.hfn.investbe.response.dto.UserResponseDTO;
 import br.com.hfn.investbe.security.dto.AuthenticationResponseDTO;
