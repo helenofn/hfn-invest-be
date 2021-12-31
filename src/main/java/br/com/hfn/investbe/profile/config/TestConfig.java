@@ -77,7 +77,7 @@ public class TestConfig {
 		roles1.add(RoleEnum.COMMOM.getModel());
 		roles1.add(RoleEnum.ADM.getModel());
 		List<Role> roles2 = new ArrayList<>();
-		roles1.add(RoleEnum.COMMOM.getModel());
+		roles2.add(RoleEnum.COMMOM.getModel());
 		User userAdm = new User();
 		userAdm.setName("Heleno Freitas Neto Adm");
 		userAdm.setEmail("heleno.freitas@gmail.com");
