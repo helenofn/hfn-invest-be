@@ -2,7 +2,7 @@ package br.com.hfn.investbe.response.dto;
 
 import java.io.Serializable;
 
-import br.com.hfn.investbe.model.user.UserStatus;
+import br.com.hfn.investbe.model.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

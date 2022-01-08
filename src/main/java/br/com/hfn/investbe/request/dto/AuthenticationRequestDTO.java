@@ -1,4 +1,4 @@
-package br.com.hfn.investbe.security.dto;
+package br.com.hfn.investbe.request.dto;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package br.com.hfn.investbe.dominio.service;
+package br.com.hfn.investbe.service;
 
 import org.springframework.stereotype.Service;
 

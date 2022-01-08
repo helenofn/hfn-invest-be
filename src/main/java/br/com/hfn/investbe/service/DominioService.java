@@ -1,12 +1,12 @@
-package br.com.hfn.investbe.dominio.service;
+package br.com.hfn.investbe.service;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import br.com.hfn.investbe.model.user.Role;
-import br.com.hfn.investbe.model.user.UserStatus;
+import br.com.hfn.investbe.model.Role;
+import br.com.hfn.investbe.model.UserStatus;
 import br.com.hfn.investbe.repository.RoleRepository;
 import br.com.hfn.investbe.repository.UserStatusRepository;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,7 @@
 package br.com.hfn.investbe.model;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,8 +31,11 @@ public class FinancialAsset implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "cseq_financial_asset", length = 22)
-	private Long id;
+	@Column(name = "cseq_financial_asset", length = 18)
+	private Long seqId;
+	
+	@Column(name = "cd_internal", length = 18, unique = true)
+	private Long internalId;
 	
 	@ManyToOne
 	@JoinColumn(name = "cseq_stock_exchange")
@@ -50,5 +53,5 @@ public class FinancialAsset implements Serializable{
 	private FinancialAssetCategory financialAssetCategory;
 	
 	@Column(name = "dh_last_update")
-	private LocalDate lastUpadate;
+	private LocalDateTime lastUpadate;
 }

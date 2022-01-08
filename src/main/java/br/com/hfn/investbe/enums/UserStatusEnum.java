@@ -1,6 +1,6 @@
 package br.com.hfn.investbe.enums;
 
-import br.com.hfn.investbe.model.user.UserStatus;
+import br.com.hfn.investbe.model.UserStatus;
 import br.com.hfn.investbe.response.dto.UserStatusResponseDTO;
 import lombok.Getter;
 

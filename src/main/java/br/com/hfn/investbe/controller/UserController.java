@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.hfn.investbe.model.user.User;
+import br.com.hfn.investbe.model.User;
 import br.com.hfn.investbe.request.dto.FilterUserRequestDTO;
 import br.com.hfn.investbe.request.dto.UserRequestDTO;
 import br.com.hfn.investbe.response.dto.UserResponseDTO;

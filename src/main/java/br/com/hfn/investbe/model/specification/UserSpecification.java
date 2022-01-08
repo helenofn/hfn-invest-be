@@ -1,8 +1,10 @@
-package br.com.hfn.investbe.repository.specification;
+package br.com.hfn.investbe.model.specification;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import br.com.hfn.investbe.model.user.User;
+import br.com.hfn.investbe.model.User;
+import br.com.hfn.investbe.model.meta.UserStatus_;
+import br.com.hfn.investbe.model.meta.User_;
 import br.com.hfn.investbe.util.StringUtil;
 
 public class UserSpecification {

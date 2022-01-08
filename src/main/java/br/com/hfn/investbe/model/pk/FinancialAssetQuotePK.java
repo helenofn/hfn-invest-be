@@ -1,4 +1,4 @@
-package br.com.hfn.investbe.model;
+package br.com.hfn.investbe.model.pk;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -8,6 +8,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import br.com.hfn.investbe.model.FinancialAsset;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

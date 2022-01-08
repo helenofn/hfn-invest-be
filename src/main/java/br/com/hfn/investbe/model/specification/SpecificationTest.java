@@ -1,4 +1,4 @@
-package br.com.hfn.investbe.repository.specification;
+package br.com.hfn.investbe.model.specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;

@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 
 import br.com.hfn.investbe.exception.HfnInvestException;
 import br.com.hfn.investbe.exception.ObjectNotFoundException;
-import br.com.hfn.investbe.model.user.User;
+import br.com.hfn.investbe.model.User;
+import br.com.hfn.investbe.model.specification.UserSpecification;
 import br.com.hfn.investbe.repository.UserRepository;
-import br.com.hfn.investbe.repository.specification.UserSpecification;
 import br.com.hfn.investbe.request.dto.FilterUserRequestDTO;
 import br.com.hfn.investbe.util.GenerateHashPasswordUtil;
 import lombok.RequiredArgsConstructor;

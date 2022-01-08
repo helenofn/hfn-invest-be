@@ -16,7 +16,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import br.com.hfn.investbe.security.dto.AuthenticationResponseDTO;
+import br.com.hfn.investbe.response.dto.AuthenticationResponseDTO;
 import br.com.hfn.investbe.util.DateTimeUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;

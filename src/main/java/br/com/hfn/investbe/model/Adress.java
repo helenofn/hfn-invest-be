@@ -1,4 +1,4 @@
-package br.com.hfn.investbe.model.adress;
+package br.com.hfn.investbe.model;
 
 import java.io.Serializable;
 
@@ -38,8 +38,14 @@ public class Adress implements Serializable{
 	@JoinColumn(name = "cseq_city")
 	private AdressCity city;
 	
+	@Column(name = "ds_district", length = 150)
+	private String dsDistrict;
+	
 	@Column(name = "ds_adress", length = 150)
 	private String dsAdress;
+	
+	@Column(name = "ds_numero", length = 15)
+	private String dsNumero;
 	
 	@Column(name = "ds_complement", length = 150)
 	private String adressComplement;

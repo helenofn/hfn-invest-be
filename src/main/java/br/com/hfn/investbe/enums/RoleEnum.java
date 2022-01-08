@@ -1,6 +1,6 @@
-package br.com.hfn.investbe.security.enums;
+package br.com.hfn.investbe.enums;
 
-import br.com.hfn.investbe.model.user.Role;
+import br.com.hfn.investbe.model.Role;
 import lombok.Getter;
 
 @Getter

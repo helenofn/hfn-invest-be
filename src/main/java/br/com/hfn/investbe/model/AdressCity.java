@@ -1,9 +1,11 @@
-package br.com.hfn.investbe.model.adress;
+package br.com.hfn.investbe.model;
 
 import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -28,8 +30,12 @@ public class AdressCity implements Serializable{
 	private static final long serialVersionUID = -752742295565061841L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cseq_city", length = 18)
-	private Long id;
+	private Long seqId;
+	
+	@Column(name = "cd_internal", length = 18, unique = true)
+	private Long internalId;
 	
 	@ManyToOne
 	@JoinColumn(name = "cseq_state")

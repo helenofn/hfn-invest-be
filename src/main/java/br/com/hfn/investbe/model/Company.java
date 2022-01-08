@@ -11,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import br.com.hfn.investbe.model.adress.Adress;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,8 +31,10 @@ public class Company implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "cseq_company", length = 22)
-	private Integer id;
+	@Column(name = "cseq_company", length = 18)
+	private Long seqId;
+	@Column(name = "cd_internal", length = 18, unique = true)
+	private Long internalId;
 	@Column(name = "ds_name", length = 150)
 	private String name;
 	@Column(name = "ds_ein", length = 20)

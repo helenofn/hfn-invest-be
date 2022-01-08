@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.hfn.investbe.dominio.service.FinancialAssetCategoryService;
 import br.com.hfn.investbe.model.FinancialAssetCategory;
 import br.com.hfn.investbe.response.dto.FinancialAssetCategoryResponseDTO;
+import br.com.hfn.investbe.service.FinancialAssetCategoryService;
 import lombok.RequiredArgsConstructor;
 
 @RestController

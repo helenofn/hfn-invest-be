@@ -1,11 +1,10 @@
-package br.com.hfn.investbe.security.dto;
+package br.com.hfn.investbe.response.dto;
 
 import java.util.Collection;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
-import br.com.hfn.investbe.response.dto.UserResponseDTO;
 import lombok.Getter;
 import lombok.Setter;
 
