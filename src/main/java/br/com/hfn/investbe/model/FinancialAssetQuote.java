@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import br.com.hfn.investbe.model.pk.FinancialAssetQuotePK;
+import co.alphavantage.response.timeseries.StockData;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,10 +35,19 @@ public class FinancialAssetQuote implements Serializable{
 	@Column(name = "VL_MAX_PRICE", length = 20, precision = 2)
 	private Double maxPrice;
 	@Column(name = "VL_MIN_PRICE", length = 20, precision = 2)
-	private Double MinPrice;
+	private Double minPrice;
 	@Column(name = "VL_PRICE", length = 20, precision = 2)
 	private Double price;
 	@Column(name = "QT_VOLUME", length = 20)
 	private Long volume;
 	
+	public FinancialAssetQuote(StockData stockData, FinancialAsset financialAsset) {
+		this.id.setFinancialAsset(financialAsset);
+		this.id.setTradedDate(stockData.getDateTime());
+		this.openPrice = stockData.getOpen();
+		this.maxPrice = stockData.getHigh();
+		this.minPrice = stockData.getLow();
+		this.price = stockData.getClose();
+		this.volume = stockData.getVolume();
+	}
 }
