@@ -30,7 +30,7 @@ public class Wallet implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "cseq_wallet", length = 18)
+	@Column(name = "cseq_wallet", length = 9)
 	private Integer seqId;
 	
 	@ManyToOne
@@ -42,4 +42,10 @@ public class Wallet implements Serializable{
 	
 	@Column(name = "dh_created")
 	private LocalDateTime dhCreated;
+	
+	@Column(name = "dh_last_calculation")
+	private LocalDateTime dhLastCalculation;
+	
+	@OneToMany(mappedBy = "wallet")
+	private List<FinancialTransaction> financialTransactions;
 }

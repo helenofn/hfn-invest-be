@@ -26,4 +26,7 @@ public class WalletItem implements Serializable{
 	
 	@Column(name = "QTD_FINANCIAL_ASSET", length = 9)
 	private Integer qtd;
+	
+	@Column(name = "AVERAGE_VALUE")
+	private Double averageValue;
 }

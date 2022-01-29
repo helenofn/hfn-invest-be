@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import br.com.hfn.investbe.enums.FinancialAssetCategoryEnum;
+import br.com.hfn.investbe.enums.FinancialTransactionTypeEnum;
 import br.com.hfn.investbe.enums.RoleEnum;
 import br.com.hfn.investbe.enums.UserStatusEnum;
 import br.com.hfn.investbe.model.Adress;
@@ -24,6 +25,7 @@ import br.com.hfn.investbe.model.Broker;
 import br.com.hfn.investbe.model.Company;
 import br.com.hfn.investbe.model.FinancialAsset;
 import br.com.hfn.investbe.model.FinancialAssetQuote;
+import br.com.hfn.investbe.model.FinancialTransaction;
 import br.com.hfn.investbe.model.Role;
 import br.com.hfn.investbe.model.StockExchange;
 import br.com.hfn.investbe.model.User;
@@ -37,11 +39,14 @@ import br.com.hfn.investbe.repository.BrokerRepository;
 import br.com.hfn.investbe.repository.CompanyRepository;
 import br.com.hfn.investbe.repository.FinancialAssetQuoteRepository;
 import br.com.hfn.investbe.repository.FinancialAssetRepository;
+import br.com.hfn.investbe.repository.FinancialTransactionRepository;
+import br.com.hfn.investbe.repository.FinancialTransactionTypeRepository;
 import br.com.hfn.investbe.repository.RoleRepository;
 import br.com.hfn.investbe.repository.StockExchangeRepository;
 import br.com.hfn.investbe.repository.UserStatusRepository;
 import br.com.hfn.investbe.service.FinancialAssetCategoryService;
 import br.com.hfn.investbe.service.UserService;
+import br.com.hfn.investbe.service.WalletService;
 import co.alphavantage.AlphaVantageConnector;
 import co.alphavantage.ApiConnector;
 import co.alphavantage.TimeSeries;
@@ -81,6 +86,11 @@ public class TestConfig {
 	private FinancialAssetRepository financialAssetRepository;
 	@Autowired
 	private FinancialAssetQuoteRepository financialAssetQuoteRepository; 
+	@Autowired
+	private WalletService walletService;
+	@Autowired
+	private FinancialTransactionTypeRepository financialTransactionTypeRepository;
+	
 	
 	@Value("${api.aplhavantage.key}")
 	private String alphavantageKey;
@@ -100,6 +110,9 @@ public class TestConfig {
 		financialAssetCategoryService.save(FinancialAssetCategoryEnum.TESOURO_DIRETO.getModel());
 		financialAssetCategoryService.save(FinancialAssetCategoryEnum.STOCKS.getModel());
 		financialAssetCategoryService.save(FinancialAssetCategoryEnum.REITS.getModel());
+		//FINANCIAL TRANSACTION TYPE
+		financialTransactionTypeRepository.save(FinancialTransactionTypeEnum.BUY.getModel());
+		financialTransactionTypeRepository.save(FinancialTransactionTypeEnum.SELL.getModel());
 		//COUNTRY
 		AdressCountry brazil = new AdressCountry(null,1L,"Brazil");
 		adressCountryRepository.save(brazil);
@@ -157,7 +170,8 @@ public class TestConfig {
 		FinancialAsset selic2025 = new FinancialAsset(null, 4L, b3, "SELIC_2025", null, FinancialAssetCategoryEnum.TESOURO_DIRETO.getModel(), LocalDateTime.now());
 		FinancialAsset selic2027 = new FinancialAsset(null, 5L, b3, "SELIC_2027", null, FinancialAssetCategoryEnum.TESOURO_DIRETO.getModel(), LocalDateTime.now());
 		FinancialAsset abev3 = new FinancialAsset(null, 6L, b3, "ABEV3", ambev, FinancialAssetCategoryEnum.ACOES.getModel(), LocalDateTime.now());
-		financialAssetRepository.saveAll(Arrays.asList(ipca2045, selic2023, prefixado2025, selic2025, selic2027, abev3));
+		FinancialAsset hglg11 = new FinancialAsset(null, 7L, b3, "HGLG11", cp_hglg11, FinancialAssetCategoryEnum.FIIS.getModel(), LocalDateTime.now());
+		financialAssetRepository.saveAll(Arrays.asList(ipca2045, selic2023, prefixado2025, selic2025, selic2027, abev3, hglg11));
 		
 		//Get all quotes monthly exemple
 		/*ApiConnector connector = new AlphaVantageConnector(alphavantageKey,6000);
@@ -189,17 +203,25 @@ public class TestConfig {
 		userCommon.setStatus(UserStatusEnum.ATIVO.getModel());
 		userService.save(userAdm);
 		userService.save(userCommon);
-		
+				
+		//Create wallet
 		Wallet wallet = new Wallet();
 		wallet.setUser(userAdm);
 		wallet.setDhCreated(LocalDateTime.now());
-		WalletItem item = new WalletItem();
-		item.getId().setFinancialAsset(abev3);
-		item.getId().setWallet(wallet);
-		item.setQtd(10);
-		wallet.getItems().add(item);
+		wallet = walletService.save(wallet);
 		
-		//todo save wallet
+		//Create transations
+		FinancialTransaction ft1 = new FinancialTransaction(null,LocalDateTime.now().minusDays(5L),wallet,abev3,FinancialTransactionTypeEnum.BUY.getModel(),100,8.18D,0D);
+		FinancialTransaction ft2 = new FinancialTransaction(null,LocalDateTime.now().minusDays(3L),wallet,abev3,FinancialTransactionTypeEnum.SELL.getModel(),30,8.59D,0D);
+		FinancialTransaction ft3 = new FinancialTransaction(null,LocalDateTime.now(),wallet,abev3,FinancialTransactionTypeEnum.BUY.getModel(),100,9.23D,0D);
+		FinancialTransaction ft4 = new FinancialTransaction(null,LocalDateTime.now(),wallet,hglg11,FinancialTransactionTypeEnum.BUY.getModel(),10,120D,0D);
+		walletService.addTransactions(Arrays.asList(ft1,ft2,ft3,ft4));
+		
+		//Calculate wallet
+		
+		//Save wallet
+		
+		
 		
 		return true;
 	}
