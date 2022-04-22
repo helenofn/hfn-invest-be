@@ -13,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.com.hfn.investbe.enums.StatusEnum;
+import br.com.hfn.investbe.request.dto.BrokerRequestDTO;
+import br.com.hfn.investbe.request.dto.NewBrokerRequestDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,11 +37,14 @@ public class Broker implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "cseq_broker", length = 18)
+	@Column(name = "cseq_broker", length = 9)
 	private Integer seqId;
 	
-	@Column(name = "cd_internal", length = 18, unique = true)
-	private Long internalId;
+	@Column(name = "internal_id", length = 9)
+	private Integer internalId;
+	
+	@Column(name = "cd_status", length = 1)
+	private StatusEnum status;
 	
 	@Column(name = "ds_name", length = 150)
 	private String name;
@@ -49,4 +55,17 @@ public class Broker implements Serializable{
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "cseq_adress")
 	private Adress mainAdress;
+	
+	public Broker(NewBrokerRequestDTO newDto) {
+		this.internalId = newDto.getInternalId();
+		this.name = newDto.getName();
+		this.ein = newDto.getEin();
+	}
+	
+	public Broker(BrokerRequestDTO newDto) {
+		this.seqId = newDto.getSeqId();
+		this.internalId = newDto.getInternalId();
+		this.name = newDto.getName();
+		this.ein = newDto.getEin();
+	}
 }

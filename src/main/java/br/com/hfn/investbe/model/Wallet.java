@@ -2,11 +2,11 @@ package br.com.hfn.investbe.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,13 +33,10 @@ public class Wallet implements Serializable{
 	@Column(name = "cseq_wallet", length = 9)
 	private Integer seqId;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cseq_user")
 	private User user;
 
-	@OneToMany(mappedBy = "id.wallet")
-	private List<WalletItem> items = new ArrayList<>();
-	
 	@Column(name = "dh_created")
 	private LocalDateTime dhCreated;
 	

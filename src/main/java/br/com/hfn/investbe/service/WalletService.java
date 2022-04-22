@@ -30,15 +30,5 @@ public class WalletService {
 		return financialTransactionRepository.saveAll(new ArrayList<>(financialTransactions));
 	}
 	
-	public void calculateWalletById(Long walletId) {
-		//TODO calcular por ativo:
-		//1 - Qtd
-		//2 - Preço médio
-		//OBS: Levar em consideração os eventos financeiros de cada ativo (desdobramento, agrupamento, bonificação, etc.)
-		// Obter as transações ordenadas por ativo e data de ocorrencia
-		// Obter os eventos contábeis dos ativos ordenados por data de ocorrencia
-		// Odernar as transações + eventos contábeis por dara de ocorrencia
-		// Calcular qtd e preço médio por ativo
-		// Salvar item
-	}
+	
 }

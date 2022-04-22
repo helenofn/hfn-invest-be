@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,10 +51,11 @@ public class User implements Serializable{
 	@Column(name="ds_name", length = 100)
 	private String name;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cd_user_status")
 	private UserStatus status;
 	
+	@Builder.Default
 	@ManyToMany
 	@JoinTable(	name = "USER_ROLE",
 				joinColumns = {@JoinColumn(name = "cseq_user")}, 

@@ -24,10 +24,12 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
 @Component
 @AllArgsConstructor
 @NoArgsConstructor
+@Log4j2
 public class JwtTokenProvider {
 
 	private static final String ROLES = "roles";
@@ -71,6 +73,7 @@ public class JwtTokenProvider {
 			Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
 			return true;
 		}catch(JwtException e) {
+			log.error("Token inválido.", e);
 			return false;
 		}
 	}

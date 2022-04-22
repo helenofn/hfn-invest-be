@@ -13,6 +13,7 @@ import br.com.hfn.investbe.exception.ObjectNotFoundException;
 import br.com.hfn.investbe.model.Role;
 import br.com.hfn.investbe.model.UserStatus;
 import br.com.hfn.investbe.response.dto.RoleResponseDTO;
+import br.com.hfn.investbe.response.dto.StatusResponseDTO;
 import br.com.hfn.investbe.response.dto.UserStatusResponseDTO;
 import br.com.hfn.investbe.service.DominioService;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +38,11 @@ public class DominioController {
 		List<Role> list = dominioService.roleListAll().orElseThrow(() -> new ObjectNotFoundException("A lista de role de usuários está vazia.", true));
 		List<RoleResponseDTO> listDto = list.stream().map(obj -> modelMapper.map(obj, RoleResponseDTO.class)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
+	}
+	
+	@GetMapping(value = "/statusListAll")
+	public ResponseEntity<List<StatusResponseDTO>> statusListAll(){
+		return ResponseEntity.ok().body(dominioService.statusListAll());
 	}
 
 }

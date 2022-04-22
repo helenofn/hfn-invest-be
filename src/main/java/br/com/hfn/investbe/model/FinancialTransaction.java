@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,17 +34,17 @@ public class FinancialTransaction implements Serializable{
 	@JoinColumn(name = "dh_ocurrence")
 	private LocalDateTime dhOcurrence;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cseq_wallet")
 	private Wallet wallet;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cseq_financial_asset")
 	private FinancialAsset financialAsset;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cseq_financial_transaction_type")
-	private FinancialTransactionType type;
+	private FinancialTransactionEventType type;
 	
 	@Column(name = "qtd_asset")
 	private Integer qtd;

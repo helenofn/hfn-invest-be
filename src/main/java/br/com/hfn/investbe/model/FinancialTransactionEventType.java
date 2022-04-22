@@ -17,17 +17,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="ACCOUNT_EVENT_FINANCIAL_ASSET")
-public class AccountingEventFinancialAsset implements Serializable{
+@Table(name="FINANCIAL_TRANSACTION_EVENT_TYPE")
+public class FinancialTransactionEventType implements Serializable{
 
-	private static final long serialVersionUID = 3900217465580178166L;
+	private static final long serialVersionUID = -2419484924100545486L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "cseq_account_event_finacial_asset", length = 18)
-	private Long seqId;
-	
-	//Tipo (Desdobramento, Agrupamento, Bonificação,...)
-	
-	//...
+	@Column(name = "cseq_financial_transaction_event_type", length = 4)
+	private Integer code;
+	@Column(name = "ds_name", length = 100)
+	private String name;
 }

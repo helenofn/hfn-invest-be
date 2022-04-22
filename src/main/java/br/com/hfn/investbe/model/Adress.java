@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,7 +35,7 @@ public class Adress implements Serializable{
 	@Column(name = "cseq_adress", length = 18)
 	private Long id;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cseq_city")
 	private AdressCity city;
 	
@@ -44,8 +45,8 @@ public class Adress implements Serializable{
 	@Column(name = "ds_adress", length = 150)
 	private String dsAdress;
 	
-	@Column(name = "ds_numero", length = 15)
-	private String dsNumero;
+	@Column(name = "ds_number", length = 15)
+	private String dsNumber;
 	
 	@Column(name = "ds_complement", length = 150)
 	private String adressComplement;
