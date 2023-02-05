@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,8 +28,10 @@ import br.com.hfn.investbe.response.dto.UserResponseDTO;
 import br.com.hfn.investbe.security.provider.JwtTokenProvider;
 import br.com.hfn.investbe.service.AuthenticationService;
 import br.com.hfn.investbe.service.UserService;
+import br.com.hfn.investbe.validator.annotations.UserInsert;
 import lombok.RequiredArgsConstructor;
 
+@Validated
 @RestController
 @RequestMapping(value = "/auth")
 @RequiredArgsConstructor
@@ -40,7 +43,7 @@ public class AuthController {
 	private final ModelMapper modelMapper;
 	
 	@PostMapping(path = "/signUp")
-	public ResponseEntity<UserResponseDTO> insert(@Valid @RequestBody NewUserRequestDTO userDto){
+	public ResponseEntity<UserResponseDTO> insert(@Valid @UserInsert @RequestBody NewUserRequestDTO userDto){
 		User user = modelMapper.map(userDto, User.class);
 		user.getRoles().addAll(Arrays.asList(RoleEnum.COMMOM.getModel()));
 		user.setStatus(UserStatusEnum.ATIVO.getModel());

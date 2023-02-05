@@ -1,4 +1,4 @@
-package br.com.hfn.investbe.validation;
+package br.com.hfn.investbe.validator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,14 +7,19 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import br.com.hfn.investbe.exception.resource.FieldMessage;
-import br.com.hfn.investbe.request.dto.BrokerRequestDTO;
+import br.com.hfn.investbe.request.dto.NewBrokerRequestDTO;
+import br.com.hfn.investbe.service.BrokerService;
 import br.com.hfn.investbe.util.StringUtil;
-import br.com.hfn.investbe.validation.annotations.BrokerInsert;
+import br.com.hfn.investbe.validator.annotations.BrokerInsert;
+import lombok.AllArgsConstructor;
 
-public class BrokerUpdateValidation implements ConstraintValidator<BrokerInsert, BrokerRequestDTO>{
+@AllArgsConstructor
+public class BrokerInsertValidator implements ConstraintValidator<BrokerInsert, NewBrokerRequestDTO>{
+
+	private final BrokerService brokerService;
 	
 	@Override
-	public boolean isValid(BrokerRequestDTO objDto, ConstraintValidatorContext context) {
+	public boolean isValid(NewBrokerRequestDTO objDto, ConstraintValidatorContext context) {
 		List<FieldMessage> list = new ArrayList<>();
 		
 		if(StringUtil.isEmpty(objDto.getName())) {
@@ -23,6 +28,10 @@ public class BrokerUpdateValidation implements ConstraintValidator<BrokerInsert,
 		
 		if(StringUtil.isEmpty(objDto.getEin())) {
 			list.add(new FieldMessage("ein","O campo ein deve ser preenchido"));
+		}
+		
+		if(brokerService.findByEin(objDto.getEin()).isPresent()) {
+			list.add(new FieldMessage("ein", "O ein informado já foi cadastrado em outro registros de corretora em nossa base de dados."));
 		}
 		
 		for (FieldMessage e : list) {

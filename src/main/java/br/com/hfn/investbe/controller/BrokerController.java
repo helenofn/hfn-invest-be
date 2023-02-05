@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,8 +19,11 @@ import br.com.hfn.investbe.request.dto.FilterBrokerRequestDTO;
 import br.com.hfn.investbe.request.dto.NewBrokerRequestDTO;
 import br.com.hfn.investbe.response.dto.BrokerResponseDTO;
 import br.com.hfn.investbe.service.BrokerService;
+import br.com.hfn.investbe.validator.annotations.BrokerInsert;
+import br.com.hfn.investbe.validator.annotations.BrokerUpdate;
 import lombok.RequiredArgsConstructor;
 
+@Validated
 @RestController
 @RequestMapping(value = "/broker")
 @RequiredArgsConstructor
@@ -28,14 +32,14 @@ public class BrokerController {
 	private final BrokerService brokerService;
 	
 	@PostMapping
-	public ResponseEntity<BrokerResponseDTO> insert(@Valid @RequestBody NewBrokerRequestDTO newBrokerDto){
+	public ResponseEntity<BrokerResponseDTO> insert(@BrokerInsert @RequestBody NewBrokerRequestDTO newBrokerDto){
 		Broker broker = new Broker(newBrokerDto);
 		broker = brokerService.save(broker);
 		return ResponseEntity.ok().body(new BrokerResponseDTO(broker));
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<BrokerResponseDTO> update(@Valid @RequestBody BrokerRequestDTO brokerDto, @PathVariable Integer id){
+	public ResponseEntity<BrokerResponseDTO> update(@BrokerUpdate @RequestBody BrokerRequestDTO brokerDto, @PathVariable Integer id){
 		Broker broker = new Broker(brokerDto);
 		broker.setSeqId(id);
 		broker = brokerService.update(broker);
