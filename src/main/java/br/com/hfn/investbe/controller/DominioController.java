@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping(value = "/dominio")
 @RequiredArgsConstructor
-public class DominioController {
+public class DominioController extends CommonController{
 
 	private final DominioService dominioService;
 	private final ModelMapper modelMapper;

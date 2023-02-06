@@ -9,17 +9,26 @@ public enum RoleEnum {
 	COMMOM(1,"COMMON"),
 	ADM(2,"ADM");
 	
-	private Integer codigo;
-	private String key;
+	private Integer key;
+	private String name;
 	private Role model;
 	
-	private RoleEnum(Integer codigo, String key) {
-		this.codigo = codigo;
+	private RoleEnum(Integer key, String name) {
 		this.key = key;
-		this.model = new Role(codigo,key,null);
+		this.name = name;
+		this.model = new Role(key, name, null);
 	}
 	
-	public String getKey() {
-		return this.key.replace("ROLE_", "");
+	public String getName() {
+		return this.name.replace("ROLE_", "");
+	}
+	
+	public static Role getRoleByName(String roleName) {
+		for (RoleEnum item : RoleEnum.values()) {
+			if(item.getName().equalsIgnoreCase(roleName)) {
+				return item.getModel();
+			}
+		}
+		return null;
 	}
 }
