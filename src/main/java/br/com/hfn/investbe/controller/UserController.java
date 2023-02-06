@@ -3,11 +3,10 @@ package br.com.hfn.investbe.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.validation.Valid;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +23,7 @@ import br.com.hfn.investbe.response.dto.UserResponseDTO;
 import br.com.hfn.investbe.service.UserService;
 import lombok.RequiredArgsConstructor;
 
+@Validated
 @RestController
 @RequestMapping(value = "/user")
 @RequiredArgsConstructor
@@ -33,7 +33,7 @@ public class UserController {
 	private final ModelMapper modelMapper;
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Void> update(@Valid @RequestBody UserRequestDTO userDto, @PathVariable Long id){
+	public ResponseEntity<Void> update(@RequestBody UserRequestDTO userDto, @PathVariable Long id){
 		User user = modelMapper.map(userDto, User.class);
 		user.setId(id);
 		userService.update(user);

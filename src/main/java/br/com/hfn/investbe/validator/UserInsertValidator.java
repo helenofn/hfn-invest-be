@@ -1,4 +1,4 @@
-package br.com.hfn.investbe.validation;
+package br.com.hfn.investbe.validator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +11,11 @@ import br.com.hfn.investbe.model.User;
 import br.com.hfn.investbe.request.dto.NewUserRequestDTO;
 import br.com.hfn.investbe.service.UserService;
 import br.com.hfn.investbe.util.StringUtil;
-import br.com.hfn.investbe.validation.annotations.UserInsert;
+import br.com.hfn.investbe.validator.annotations.UserInsert;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class UserInsertValidation implements ConstraintValidator<UserInsert, NewUserRequestDTO>{
+public class UserInsertValidator implements ConstraintValidator<UserInsert, NewUserRequestDTO>{
 
 	private final UserService userService;
 	

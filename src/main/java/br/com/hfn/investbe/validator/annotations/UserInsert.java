@@ -1,4 +1,4 @@
-package br.com.hfn.investbe.validation.annotations;
+package br.com.hfn.investbe.validator.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -8,12 +8,12 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import br.com.hfn.investbe.validation.BrokerUpdateValidation;
+import br.com.hfn.investbe.validator.UserInsertValidator;
 
-@Constraint(validatedBy = BrokerUpdateValidation.class)
-@Target({ ElementType.TYPE })
+@Constraint(validatedBy = UserInsertValidator.class)
+@Target({ ElementType.PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface BrokerUpdate {
+public @interface UserInsert {
 
 	String message() default "Ocorreram as seguintes críticas: ";
 	

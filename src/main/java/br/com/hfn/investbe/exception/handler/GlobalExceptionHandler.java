@@ -1,6 +1,8 @@
 package br.com.hfn.investbe.exception.handler;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,8 +17,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import br.com.hfn.investbe.exception.DataIntegrityException;
 import br.com.hfn.investbe.exception.HfnInvestException;
 import br.com.hfn.investbe.exception.ObjectNotFoundException;
+import br.com.hfn.investbe.exception.ValidatorException;
 import br.com.hfn.investbe.exception.resource.StandardError;
 import br.com.hfn.investbe.exception.resource.ValidationError;
+import br.com.hfn.investbe.response.dto.ExceptionResponseDTO;
 
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
@@ -39,27 +43,21 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 	}
 	
+	@ExceptionHandler({ ConstraintViolationException.class })
+	public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException ex, WebRequest request) {
+		ExceptionResponseDTO err = new ExceptionResponseDTO(HttpStatus.NOT_ACCEPTABLE.value(), "Ocorreram as seguintes criticas:", System.currentTimeMillis(), null);
+	    for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
+	    	String nomeCampo = violation.getPropertyPath()!=null? violation.getPropertyPath().toString() : "";
+	    	err.addError(nomeCampo, violation.getMessage());
+	    }
+	    return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(err);
+	}
 	
-	/*@ExceptionHandler(value = MethodArgumentNotValidException.class)
-	public ResponseEntity<StandardError> validation(MethodArgumentNotValidException e, HttpServletRequest request) {
-		
-		ValidationError err = new ValidationError(HttpStatus.BAD_REQUEST.value(), "Erro de Validação", System.currentTimeMillis());
-		
-		for (FieldError x : e.getBindingResult().getFieldErrors()) {
-			err.addError(x.getField(), x.getDefaultMessage());
-		}
-		
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
-	}*/
-	
-	@Override
-	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-		ValidationError err = new ValidationError(HttpStatus.BAD_REQUEST.value(), "Erro de Validação", System.currentTimeMillis());
-		
-		for (FieldError x : ex.getBindingResult().getFieldErrors()) {
-			err.addError(x.getField(), x.getDefaultMessage());
-		}
-		return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(err);
+	@ExceptionHandler({ ValidatorException.class })
+	public ResponseEntity<Object> handleValidatorException(ValidatorException ex) {
+		ExceptionResponseDTO err = new ExceptionResponseDTO(HttpStatus.NOT_ACCEPTABLE.value(), "Ocorreram as seguintes criticas:", System.currentTimeMillis(), null);
+	    err.setErrors(ex.getErros());
+	    return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(err);
 	}
 	
 }
