@@ -1,4 +1,4 @@
-package br.com.hfn.investbe.security.config;
+package br.com.hfn.investbe.config;
 
 import java.util.Arrays;
 

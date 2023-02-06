@@ -18,14 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.hfn.investbe.config.dto.UsuarioAuthDTO;
+import br.com.hfn.investbe.config.provider.JwtTokenProvider;
 import br.com.hfn.investbe.enums.RoleEnum;
 import br.com.hfn.investbe.enums.UserStatusEnum;
 import br.com.hfn.investbe.model.User;
 import br.com.hfn.investbe.request.dto.AuthenticationRequestDTO;
 import br.com.hfn.investbe.request.dto.NewUserRequestDTO;
-import br.com.hfn.investbe.response.dto.AuthenticationResponseDTO;
 import br.com.hfn.investbe.response.dto.UserResponseDTO;
-import br.com.hfn.investbe.security.provider.JwtTokenProvider;
 import br.com.hfn.investbe.service.AuthenticationService;
 import br.com.hfn.investbe.service.UserService;
 import br.com.hfn.investbe.validator.annotations.UserInsert;
@@ -35,7 +35,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping(value = "/auth")
 @RequiredArgsConstructor
-public class AuthController {
+public class AuthController extends CommonController{
 
 	private final UserService userService;
 	private final AuthenticationService authenticationService;
@@ -52,14 +52,14 @@ public class AuthController {
 		return ResponseEntity.created(uri).body(modelMapper.map(user, UserResponseDTO.class));
 	}
 	
-	@PostMapping(path = "/logIn")
-	public ResponseEntity<Map<Object, Object>> logIn(@Valid @RequestBody AuthenticationRequestDTO authenticationRequest){
+	@PostMapping(path = "/login")
+	public ResponseEntity<Map<Object, Object>> login(@Valid @RequestBody AuthenticationRequestDTO authenticationRequest){
 		
-		AuthenticationResponseDTO auth = authenticationService.authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+		UsuarioAuthDTO auth = authenticationService.authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 		String token = jwtTokenProvider.createToken(authenticationRequest.getUsername(), auth.getAuthorities());
 		
 		Map<Object, Object> model = new HashMap<>();
-		model.put("user", auth.getUser());
+		model.put("user", modelMapper.map(auth.getUser(), UserResponseDTO.class));
 		model.put("roles", auth.getAuthorities());
 		model.put("token", token);
 		return ResponseEntity.ok(model);

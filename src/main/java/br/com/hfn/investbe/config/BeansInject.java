@@ -1,4 +1,4 @@
-package br.com.hfn.investbe.security.config;
+package br.com.hfn.investbe.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

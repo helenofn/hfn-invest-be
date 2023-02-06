@@ -1,7 +1,5 @@
 package br.com.hfn.investbe.controller;
 
-import javax.validation.Valid;
-
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -27,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping(value = "/broker")
 @RequiredArgsConstructor
-public class BrokerController {
+public class BrokerController extends CommonController{
 
 	private final BrokerService brokerService;
 	

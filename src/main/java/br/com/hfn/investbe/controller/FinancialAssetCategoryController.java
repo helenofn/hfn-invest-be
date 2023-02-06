@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping(value = "/financialAssetCategory")
 @RequiredArgsConstructor
-public class FinancialAssetCategoryController {
+public class FinancialAssetCategoryController extends CommonController{
 
 	private final FinancialAssetCategoryService financialAssetCategoryService;
 	private final ModelMapper modelMapper;
