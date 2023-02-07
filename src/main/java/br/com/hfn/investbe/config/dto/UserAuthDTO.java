@@ -15,13 +15,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UsuarioAuthDTO extends UsernamePasswordAuthenticationToken{
+public class UserAuthDTO extends UsernamePasswordAuthenticationToken{
 
 	private static final long serialVersionUID = -7204534684207673943L;
 
 	private User user;
 	
-	public UsuarioAuthDTO(Object principal, Object credentials, Collection<GrantedAuthority> authorities, User user) {
+	public UserAuthDTO(Object principal, Object credentials, Collection<GrantedAuthority> authorities, User user) {
 		super(principal, credentials, authorities);
 	    this.user = user;
 	}

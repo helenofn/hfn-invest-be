@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
-import br.com.hfn.investbe.config.dto.UsuarioAuthDTO;
+import br.com.hfn.investbe.config.dto.UserAuthDTO;
 import br.com.hfn.investbe.exception.HfnInvestException;
 import br.com.hfn.investbe.model.Role;
 import br.com.hfn.investbe.model.User;
@@ -24,7 +24,7 @@ public class AuthenticationService{
 
 	private final UserRepository userRepository;
 	
-	public UsuarioAuthDTO authenticate(String username, String password) {
+	public UserAuthDTO authenticate(String username, String password) {
 		
 		if(!StringUtil.isEmpty(password) && !StringUtil.isEmpty(username)) {
 			String hashPass = GenerateHashPasswordUtil.getHasFromPassword(password);
@@ -38,7 +38,7 @@ public class AuthenticationService{
 			if(null==roles || roles.isEmpty()) {
 				throw new HfnInvestException("Usuário não possui roles associadas",true);
 			}
-			return new UsuarioAuthDTO(username,password, roles, user);
+			return new UserAuthDTO(username,password, roles, user);
 			
 		}else {
 			log.error("Usuário ou senha não informados");

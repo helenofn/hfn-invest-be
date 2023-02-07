@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.hfn.investbe.config.dto.UsuarioAuthDTO;
+import br.com.hfn.investbe.config.dto.UserAuthDTO;
 import br.com.hfn.investbe.config.provider.JwtTokenProvider;
 import br.com.hfn.investbe.enums.RoleEnum;
 import br.com.hfn.investbe.enums.UserStatusEnum;
@@ -55,7 +55,7 @@ public class AuthController extends CommonController{
 	@PostMapping(path = "/login")
 	public ResponseEntity<Map<Object, Object>> login(@Valid @RequestBody AuthenticationRequestDTO authenticationRequest){
 		
-		UsuarioAuthDTO auth = authenticationService.authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+		UserAuthDTO auth = authenticationService.authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 		String token = jwtTokenProvider.createToken(authenticationRequest.getUsername(), auth.getAuthorities());
 		
 		Map<Object, Object> model = new HashMap<>();

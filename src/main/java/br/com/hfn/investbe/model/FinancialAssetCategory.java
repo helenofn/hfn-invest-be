@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import br.com.hfn.investbe.response.dto.FinancialAssetCategoryResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,10 +34,4 @@ public class FinancialAssetCategory {
 	private String name;
 	@Column(name = "ds_description", length = 500)
 	private String description;
-	
-	public FinancialAssetCategory(FinancialAssetCategoryResponseDTO dto) {
-		this.id = dto.getId();
-		this.name = dto.getName();
-		this.description = dto.getDescription();
-	}
 }
