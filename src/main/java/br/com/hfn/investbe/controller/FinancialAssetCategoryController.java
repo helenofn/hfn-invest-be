@@ -2,8 +2,11 @@ package br.com.hfn.investbe.controller;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,8 +19,10 @@ import br.com.hfn.investbe.model.FinancialAssetCategory;
 import br.com.hfn.investbe.request.dto.NewFinancialAssetCategoryRequestDTO;
 import br.com.hfn.investbe.response.dto.FinancialAssetCategoryResponseDTO;
 import br.com.hfn.investbe.service.FinancialAssetCategoryService;
+import br.com.hfn.investbe.validator.annotations.NewFinancialAssetCategory;
 import lombok.RequiredArgsConstructor;
 
+@Validated
 @RestController
 @RequestMapping(value = "/financialAssetCategory")
 @RequiredArgsConstructor
@@ -33,7 +38,7 @@ public class FinancialAssetCategoryController extends CommonController{
 	}
 	
 	@PostMapping
-	public ResponseEntity<FinancialAssetCategoryResponseDTO> save(@RequestBody NewFinancialAssetCategoryRequestDTO dto){
+	public ResponseEntity<FinancialAssetCategoryResponseDTO> save(@RequestBody @Valid @NewFinancialAssetCategory NewFinancialAssetCategoryRequestDTO dto){
 		FinancialAssetCategory model = modelMapper.map(dto, FinancialAssetCategory.class);
 		model = financialAssetCategoryService.save(model);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(model.getId()).toUri();
