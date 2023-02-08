@@ -16,10 +16,10 @@ import lombok.NoArgsConstructor;
 public class NewFinancialAssetCategoryRequestDTO {
 
 	@NotEmpty(message="Preenchimento Obrigatório")
-	@Length(min=5, max=100, message="O tamanho do nome deve ser entre 5 e 100 caracteres")
+	@Length(min=4, max=100, message="O tamanho do nome deve ser entre 4 e 100 caracteres")
 	private String name;
 	
 	@NotEmpty(message="Preenchimento Obrigatório")
-	@Length(min=5, max=500, message="O tamanho da descrição deve ser entre 5 e 500 caracteres")
+	@Length(min=4, max=500, message="O tamanho da descrição deve ser entre 4 e 500 caracteres")
 	private String description;
 }

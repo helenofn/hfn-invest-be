@@ -9,15 +9,15 @@ import lombok.Getter;
 public enum FinancialAssetCategoryEnum {
 
 	@JsonProperty("AÇÔES")
-	ACOES(1,"Ações", ""),
+	ACOES(1,"Ações", "Ações"),
 	@JsonProperty("FIIS")
-	FIIS(2, "FIIs", ""),
+	FIIS(2, "FIIs", "FIIs"),
 	@JsonProperty("TESOURO DIRETO")
-	TESOURO_DIRETO(3, "Tesouro Direto", ""),
+	TESOURO_DIRETO(3, "Tesouro Direto", "Tesouro Direto"),
 	@JsonProperty("AÇÔES")
-	STOCKS(4, "Stocks", ""),
+	STOCKS(4, "Stocks", "Stocks"),
 	@JsonProperty("AÇÔES")
-	REITS(5, "REITs", "");
+	REITS(5, "REITs", "REITs");
 	
 	private Integer code;
 	private String name;
