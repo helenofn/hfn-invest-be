@@ -19,7 +19,6 @@ import br.com.hfn.investbe.model.FinancialAssetCategory;
 import br.com.hfn.investbe.request.dto.NewFinancialAssetCategoryRequestDTO;
 import br.com.hfn.investbe.response.dto.FinancialAssetCategoryResponseDTO;
 import br.com.hfn.investbe.service.FinancialAssetCategoryService;
-import br.com.hfn.investbe.validator.annotations.NewFinancialAssetCategory;
 import lombok.RequiredArgsConstructor;
 
 @Validated
@@ -38,9 +37,9 @@ public class FinancialAssetCategoryController extends CommonController{
 	}
 	
 	@PostMapping
-	public ResponseEntity<FinancialAssetCategoryResponseDTO> save(@RequestBody @Valid @NewFinancialAssetCategory NewFinancialAssetCategoryRequestDTO dto){
+	public ResponseEntity<FinancialAssetCategoryResponseDTO> save(@RequestBody @Valid NewFinancialAssetCategoryRequestDTO dto){
 		FinancialAssetCategory model = modelMapper.map(dto, FinancialAssetCategory.class);
-		model = financialAssetCategoryService.save(model);
+		model = financialAssetCategoryService.insert(model);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(model.getId()).toUri();
 		return ResponseEntity.created(uri).body(modelMapper.map(model, FinancialAssetCategoryResponseDTO.class));
 	}

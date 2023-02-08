@@ -8,18 +8,17 @@ import javax.validation.ConstraintValidatorContext;
 
 import br.com.hfn.investbe.exception.resource.FieldMessage;
 import br.com.hfn.investbe.model.FinancialAssetCategory;
-import br.com.hfn.investbe.request.dto.NewFinancialAssetCategoryRequestDTO;
 import br.com.hfn.investbe.service.FinancialAssetCategoryService;
-import br.com.hfn.investbe.validator.annotations.NewFinancialAssetCategory;
+import br.com.hfn.investbe.validator.annotations.InsertFinancialAssetCategory;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class NewFinancialAssetCategoryValidator implements ConstraintValidator<NewFinancialAssetCategory, NewFinancialAssetCategoryRequestDTO>{
+public class InsertFinancialAssetCategoryValidator implements ConstraintValidator<InsertFinancialAssetCategory, FinancialAssetCategory>{
 
 	private final FinancialAssetCategoryService financialAssetCategoryService;
 	
 	@Override
-	public boolean isValid(NewFinancialAssetCategoryRequestDTO value, ConstraintValidatorContext context) {
+	public boolean isValid(FinancialAssetCategory value, ConstraintValidatorContext context) {
 		List<FieldMessage> list = new ArrayList<>();
 		
 		List<FinancialAssetCategory> listaCategoria = financialAssetCategoryService.findByName(value.getName()).orElse(null);

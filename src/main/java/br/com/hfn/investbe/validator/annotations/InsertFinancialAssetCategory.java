@@ -8,13 +8,12 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import br.com.hfn.investbe.validator.BrokerInsertValidator;
-import br.com.hfn.investbe.validator.NewFinancialAssetCategoryValidator;
+import br.com.hfn.investbe.validator.InsertFinancialAssetCategoryValidator;
 
-@Constraint(validatedBy = NewFinancialAssetCategoryValidator.class)
+@Constraint(validatedBy = InsertFinancialAssetCategoryValidator.class)
 @Target({ ElementType.PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface NewFinancialAssetCategory {
+public @interface InsertFinancialAssetCategory {
 
 	String message() default "Ocorreram as seguintes críticas: ";
 	

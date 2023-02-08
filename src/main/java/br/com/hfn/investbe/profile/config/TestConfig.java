@@ -92,11 +92,11 @@ public class TestConfig {
 		userStatusRepo.save(UserStatusEnum.ATIVO.getModel());
 		userStatusRepo.save(UserStatusEnum.INATIVO.getModel());
 		//FINANCIAL ASSET CATEGORIES
-		financialAssetCategoryService.save(FinancialAssetCategoryEnum.ACOES.getModel());
-		financialAssetCategoryService.save(FinancialAssetCategoryEnum.FIIS.getModel());
-		financialAssetCategoryService.save(FinancialAssetCategoryEnum.TESOURO_DIRETO.getModel());
-		financialAssetCategoryService.save(FinancialAssetCategoryEnum.STOCKS.getModel());
-		financialAssetCategoryService.save(FinancialAssetCategoryEnum.REITS.getModel());
+		financialAssetCategoryService.insert(FinancialAssetCategoryEnum.ACOES.getModel());
+		financialAssetCategoryService.insert(FinancialAssetCategoryEnum.FIIS.getModel());
+		financialAssetCategoryService.insert(FinancialAssetCategoryEnum.TESOURO_DIRETO.getModel());
+		financialAssetCategoryService.insert(FinancialAssetCategoryEnum.STOCKS.getModel());
+		financialAssetCategoryService.insert(FinancialAssetCategoryEnum.REITS.getModel());
 		//FINANCIAL TRANSACTION TYPE
 		financialTransactionTypeRepository.save(FinancialTransactionEventTypeEnum.BUY.getModel());
 		financialTransactionTypeRepository.save(FinancialTransactionEventTypeEnum.SELL.getModel());
