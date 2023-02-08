@@ -1,5 +1,6 @@
 package br.com.hfn.investbe.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -20,5 +21,9 @@ public class FinancialAssetCategoryService {
 	
 	public Optional<FinancialAssetCategory> findById(Integer id) {
 		return financialAssetCategoryRepository.findById(id);
+	}
+	
+	public Optional<List<FinancialAssetCategory>> findByName(String name) {
+		return financialAssetCategoryRepository.findByName(name);
 	}
 }
