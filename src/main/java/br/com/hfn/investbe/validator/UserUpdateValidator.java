@@ -9,20 +9,20 @@ import javax.validation.ConstraintValidatorContext;
 import br.com.hfn.investbe.exception.resource.FieldMessage;
 import br.com.hfn.investbe.model.User;
 import br.com.hfn.investbe.service.UserService;
-import br.com.hfn.investbe.validator.annotations.UserInsert;
+import br.com.hfn.investbe.validator.annotations.UserUpdate;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class UserInsertValidator implements ConstraintValidator<UserInsert, User>{
+public class UserUpdateValidator implements ConstraintValidator<UserUpdate, User>{
 
 	private final UserService userService;
 	
 	@Override
-	public boolean isValid(User obj, ConstraintValidatorContext context) {
+	public boolean isValid(User value, ConstraintValidatorContext context) {
 		List<FieldMessage> list = new ArrayList<>();
 		
-		User userAux = userService.findByEmail(obj.getEmail());
-		if (userAux != null) {
+		User userAux = userService.findByEmail(value.getEmail());
+		if (userAux != null && !userAux.getId().equals(value.getId())) {
 			list.add(new FieldMessage("email", "E-mail já existente em nossa base de dados."));
 		}
 		
@@ -33,5 +33,4 @@ public class UserInsertValidator implements ConstraintValidator<UserInsert, User
 		return list.isEmpty();
 	}
 
-	
 }

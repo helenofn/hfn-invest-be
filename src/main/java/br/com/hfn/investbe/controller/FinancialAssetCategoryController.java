@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.hfn.investbe.model.FinancialAssetCategory;
-import br.com.hfn.investbe.request.dto.NewFinancialAssetCategoryRequestDTO;
+import br.com.hfn.investbe.request.dto.FinancialAssetCategoryInsertRequestDTO;
 import br.com.hfn.investbe.response.dto.FinancialAssetCategoryResponseDTO;
 import br.com.hfn.investbe.service.FinancialAssetCategoryService;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +37,7 @@ public class FinancialAssetCategoryController extends CommonController{
 	}
 	
 	@PostMapping
-	public ResponseEntity<FinancialAssetCategoryResponseDTO> save(@RequestBody @Valid NewFinancialAssetCategoryRequestDTO dto){
+	public ResponseEntity<FinancialAssetCategoryResponseDTO> save(@RequestBody @Valid FinancialAssetCategoryInsertRequestDTO dto){
 		FinancialAssetCategory model = modelMapper.map(dto, FinancialAssetCategory.class);
 		model = financialAssetCategoryService.insert(model);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(model.getId()).toUri();

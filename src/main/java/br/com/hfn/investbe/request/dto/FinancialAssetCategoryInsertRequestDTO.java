@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NewFinancialAssetCategoryRequestDTO {
+public class FinancialAssetCategoryInsertRequestDTO {
 
 	@NotEmpty(message="Preenchimento Obrigatório")
 	@Length(min=4, max=100, message="O tamanho do nome deve ser entre 4 e 100 caracteres")

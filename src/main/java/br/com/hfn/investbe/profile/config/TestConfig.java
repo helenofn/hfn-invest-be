@@ -193,8 +193,8 @@ public class TestConfig {
 		userCommon.setPassword("12345678");
 		userCommon.setRoles(roles2);
 		userCommon.setStatus(UserStatusEnum.ATIVO.getModel());
-		userService.save(userAdm);
-		userService.save(userCommon);
+		userService.insert(userAdm);
+		userService.insert(userCommon);
 				
 		//Create wallet
 		Wallet wallet = new Wallet();

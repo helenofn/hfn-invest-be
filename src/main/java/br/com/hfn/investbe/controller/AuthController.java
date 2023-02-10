@@ -24,11 +24,10 @@ import br.com.hfn.investbe.enums.RoleEnum;
 import br.com.hfn.investbe.enums.UserStatusEnum;
 import br.com.hfn.investbe.model.User;
 import br.com.hfn.investbe.request.dto.AuthenticationRequestDTO;
-import br.com.hfn.investbe.request.dto.NewUserRequestDTO;
+import br.com.hfn.investbe.request.dto.UserInsertRequestDTO;
 import br.com.hfn.investbe.response.dto.UserResponseDTO;
 import br.com.hfn.investbe.service.AuthenticationService;
 import br.com.hfn.investbe.service.UserService;
-import br.com.hfn.investbe.validator.annotations.UserInsert;
 import lombok.RequiredArgsConstructor;
 
 @Validated
@@ -43,11 +42,11 @@ public class AuthController extends CommonController{
 	private final ModelMapper modelMapper;
 	
 	@PostMapping(path = "/signUp")
-	public ResponseEntity<UserResponseDTO> insert(@Valid @UserInsert @RequestBody NewUserRequestDTO userDto){
+	public ResponseEntity<UserResponseDTO> insert(@Valid @RequestBody UserInsertRequestDTO userDto){
 		User user = modelMapper.map(userDto, User.class);
 		user.getRoles().addAll(Arrays.asList(RoleEnum.COMMOM.getModel()));
 		user.setStatus(UserStatusEnum.ATIVO.getModel());
-		user = userService.save(user);
+		user = userService.insert(user);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
 		return ResponseEntity.created(uri).body(modelMapper.map(user, UserResponseDTO.class));
 	}

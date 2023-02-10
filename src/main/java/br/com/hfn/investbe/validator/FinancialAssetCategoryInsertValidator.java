@@ -9,11 +9,11 @@ import javax.validation.ConstraintValidatorContext;
 import br.com.hfn.investbe.exception.resource.FieldMessage;
 import br.com.hfn.investbe.model.FinancialAssetCategory;
 import br.com.hfn.investbe.service.FinancialAssetCategoryService;
-import br.com.hfn.investbe.validator.annotations.InsertFinancialAssetCategory;
+import br.com.hfn.investbe.validator.annotations.FinancialAssetCategoryInsert;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class InsertFinancialAssetCategoryValidator implements ConstraintValidator<InsertFinancialAssetCategory, FinancialAssetCategory>{
+public class FinancialAssetCategoryInsertValidator implements ConstraintValidator<FinancialAssetCategoryInsert, FinancialAssetCategory>{
 
 	private final FinancialAssetCategoryService financialAssetCategoryService;
 	

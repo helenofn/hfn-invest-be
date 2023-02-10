@@ -6,15 +6,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
-public class BrokerRequestDTO implements Serializable{
+@NoArgsConstructor
+@AllArgsConstructor
+public class BrokerFilterRequestDTO implements Serializable{
 	
-	private static final long serialVersionUID = 9047258315260991938L;
+	private static final long serialVersionUID = 2429393291529512858L;
 	
 	private Integer seqId;
 	private Integer internalId;
 	private String name;
 	private String ein;
+	
 }

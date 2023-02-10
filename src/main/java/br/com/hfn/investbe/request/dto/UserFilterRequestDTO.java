@@ -9,13 +9,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FilterBrokerRequestDTO implements Serializable{
+public class UserFilterRequestDTO implements Serializable{
+
+	private static final long serialVersionUID = -1076970482858410333L;
 	
-	private static final long serialVersionUID = 2429393291529512858L;
-	
-	private Integer seqId;
-	private Integer internalId;
 	private String name;
-	private String ein;
-	
+	private String email;
+	private Integer statusCode;
 }

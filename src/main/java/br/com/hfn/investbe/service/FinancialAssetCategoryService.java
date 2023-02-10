@@ -10,7 +10,7 @@ import org.springframework.validation.annotation.Validated;
 
 import br.com.hfn.investbe.model.FinancialAssetCategory;
 import br.com.hfn.investbe.repository.FinancialAssetCategoryRepository;
-import br.com.hfn.investbe.validator.annotations.InsertFinancialAssetCategory;
+import br.com.hfn.investbe.validator.annotations.FinancialAssetCategoryInsert;
 import lombok.RequiredArgsConstructor;
 
 @Validated
@@ -20,7 +20,7 @@ public class FinancialAssetCategoryService {
 
 	private final FinancialAssetCategoryRepository financialAssetCategoryRepository;
 	
-	public FinancialAssetCategory insert(@Valid @InsertFinancialAssetCategory FinancialAssetCategory obj) {
+	public FinancialAssetCategory insert(@Valid @FinancialAssetCategoryInsert FinancialAssetCategory obj) {
 		return financialAssetCategoryRepository.save(obj);
 	}
 	
