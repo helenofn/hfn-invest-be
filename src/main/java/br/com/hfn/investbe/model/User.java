@@ -15,6 +15,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -42,12 +46,19 @@ public class User implements Serializable{
 	@Column(name="cseq_user", length = 22)
 	private Long id;
 	
-	@Column(name="ds_email", unique=true)
+	@NotEmpty(message="Preenchimento Obrigatório")
+	@Email(message="E-mail inválido")
+	@Length(min=10, max=150, message="O tamanho do e-mail deve ser entre 10 e 150 caracteres")
+	@Column(name="ds_email", unique=true, length = 150)
 	private String email;
 	
+	@NotEmpty(message="Preenchimento Obrigatório")
+	@Length(min=8, max=60, message="O tamanho da senha deve ser entre 8 e 60 caracteres")
 	@Column(name="ds_cript_pass", length = 60)
 	private String password;
 	
+	@NotEmpty(message="Preenchimento Obrigatório")
+	@Length(min=5, max=100, message="O tamanho do nome deve ser entre 5 e 100 caracteres")
 	@Column(name="ds_name", length = 100)
 	private String name;
 	

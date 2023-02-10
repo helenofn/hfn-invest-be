@@ -3,6 +3,8 @@ package br.com.hfn.investbe.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.hfn.investbe.model.User;
-import br.com.hfn.investbe.request.dto.FilterUserRequestDTO;
-import br.com.hfn.investbe.request.dto.UserRequestDTO;
+import br.com.hfn.investbe.request.dto.UserFilterRequestDTO;
+import br.com.hfn.investbe.request.dto.UserUpdateRequestDTO;
 import br.com.hfn.investbe.response.dto.UserResponseDTO;
 import br.com.hfn.investbe.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +35,7 @@ public class UserController extends CommonController{
 	private final ModelMapper modelMapper;
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Void> update(@RequestBody UserRequestDTO userDto, @PathVariable Long id){
+	public ResponseEntity<Void> update(@RequestBody @Valid UserUpdateRequestDTO userDto, @PathVariable Long id){
 		User user = modelMapper.map(userDto, User.class);
 		user.setId(id);
 		userService.update(user);
@@ -52,7 +54,7 @@ public class UserController extends CommonController{
 			@RequestParam(value = "linesPerPage", defaultValue = "15") Integer linesPerPage,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction,
 			@RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
-			@RequestBody FilterUserRequestDTO filtro){
+			@RequestBody UserFilterRequestDTO filtro){
 		
 		Page<User> list = userService.findPage(page, linesPerPage, direction, orderBy, filtro);
 		Page<UserResponseDTO> listDto = list.map(obj -> modelMapper.map(obj, UserResponseDTO.class));

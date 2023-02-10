@@ -60,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
             .and()
             .authorizeRequests()
             .antMatchers(HttpMethod.OPTIONS).permitAll()
-            .antMatchers("/h2-console/**","/auth/**","/dominio/**").permitAll()
+            .antMatchers("/h2-console/**","/auth/**").permitAll()
             .anyRequest().authenticated()
             .and()
             .apply(new JwtConfig(jwtTokenProvider));

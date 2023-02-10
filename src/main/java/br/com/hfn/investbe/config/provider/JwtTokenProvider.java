@@ -16,7 +16,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import br.com.hfn.investbe.config.dto.UsuarioAuthDTO;
+import br.com.hfn.investbe.config.dto.UserAuthDTO;
 import br.com.hfn.investbe.util.DateTimeUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
@@ -79,7 +79,7 @@ public class JwtTokenProvider {
 	}
 	
 	public Authentication getAuthentication(String token) {
-		return new UsuarioAuthDTO(getUserName(token), null, getRoles(token), null);
+		return new UserAuthDTO(getUserName(token), null, getRoles(token), null);
 	}
 	
 	public Claims getJwtBody(String token) {

@@ -1,5 +1,8 @@
 package br.com.hfn.investbe.controller;
 
+import javax.validation.Valid;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -11,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.hfn.investbe.enums.StatusEnum;
 import br.com.hfn.investbe.model.Broker;
-import br.com.hfn.investbe.request.dto.BrokerRequestDTO;
-import br.com.hfn.investbe.request.dto.FilterBrokerRequestDTO;
-import br.com.hfn.investbe.request.dto.NewBrokerRequestDTO;
+import br.com.hfn.investbe.request.dto.BrokerFilterRequestDTO;
+import br.com.hfn.investbe.request.dto.BrokerInsertRequestDTO;
+import br.com.hfn.investbe.request.dto.BrokerUpdateRequestDTO;
 import br.com.hfn.investbe.response.dto.BrokerResponseDTO;
 import br.com.hfn.investbe.service.BrokerService;
-import br.com.hfn.investbe.validator.annotations.BrokerInsert;
 import br.com.hfn.investbe.validator.annotations.BrokerUpdate;
 import lombok.RequiredArgsConstructor;
 
@@ -27,18 +30,20 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BrokerController extends CommonController{
 
+	private final ModelMapper modelMapper;
 	private final BrokerService brokerService;
 	
 	@PostMapping
-	public ResponseEntity<BrokerResponseDTO> insert(@BrokerInsert @RequestBody NewBrokerRequestDTO newBrokerDto){
-		Broker broker = new Broker(newBrokerDto);
+	public ResponseEntity<BrokerResponseDTO> insert(@RequestBody @Valid BrokerInsertRequestDTO newBrokerDto){
+		Broker broker = modelMapper.map(newBrokerDto, Broker.class);
+		broker.setStatus(StatusEnum.ATIVO);
 		broker = brokerService.save(broker);
 		return ResponseEntity.ok().body(new BrokerResponseDTO(broker));
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<BrokerResponseDTO> update(@BrokerUpdate @RequestBody BrokerRequestDTO brokerDto, @PathVariable Integer id){
-		Broker broker = new Broker(brokerDto);
+	public ResponseEntity<BrokerResponseDTO> update(@RequestBody @Valid BrokerUpdateRequestDTO brokerDto, @PathVariable Integer id){
+		Broker broker = modelMapper.map(brokerDto, Broker.class);
 		broker.setSeqId(id);
 		broker = brokerService.update(broker);
 		return ResponseEntity.ok().body(new BrokerResponseDTO(broker));
@@ -50,7 +55,7 @@ public class BrokerController extends CommonController{
 			@RequestParam(value = "linesPerPage", defaultValue = "15") Integer linesPerPage,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction,
 			@RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
-			@RequestBody FilterBrokerRequestDTO filtro){
+			@RequestBody BrokerFilterRequestDTO filtro){
 		
 		Page<Broker> list = brokerService.findPage(page, linesPerPage, direction, orderBy, filtro);
 		Page<BrokerResponseDTO> listDto = list.map(obj -> new BrokerResponseDTO(obj));

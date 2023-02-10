@@ -16,7 +16,7 @@ public enum RoleEnum {
 	private RoleEnum(Integer key, String name) {
 		this.key = key;
 		this.name = name;
-		this.model = new Role(key, name, null);
+		this.model = new Role(key, name);
 	}
 	
 	public String getName() {

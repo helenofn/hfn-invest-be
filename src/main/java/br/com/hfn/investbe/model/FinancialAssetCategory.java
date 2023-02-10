@@ -6,8 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
-import br.com.hfn.investbe.response.dto.FinancialAssetCategoryResponseDTO;
+import org.hibernate.validator.constraints.Length;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,14 +33,12 @@ public class FinancialAssetCategory {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cseq_financial_asset_category", length = 4)
 	private Integer id;
+	@NotEmpty(message="Preenchimento Obrigatório")
+	@Length(min=4, max=100, message="O tamanho do nome deve ser entre 4 e 100 caracteres")
 	@Column(name = "ds_name", length = 100)
 	private String name;
+	@NotEmpty(message="Preenchimento Obrigatório")
+	@Length(min=4, max=100, message="O tamanho da descrição deve ser entre 4 e 500 caracteres")
 	@Column(name = "ds_description", length = 500)
 	private String description;
-	
-	public FinancialAssetCategory(FinancialAssetCategoryResponseDTO dto) {
-		this.id = dto.getId();
-		this.name = dto.getName();
-		this.description = dto.getDescription();
-	}
 }
