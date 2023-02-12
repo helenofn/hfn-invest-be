@@ -8,6 +8,9 @@ import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +37,7 @@ public class UserController extends CommonController{
 	private final UserService userService;
 	private final ModelMapper modelMapper;
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADM','ROLE_COMMON')")
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Void> update(@RequestBody @Valid UserUpdateRequestDTO userDto, @PathVariable Long id){
 		User user = modelMapper.map(userDto, User.class);
@@ -42,12 +46,14 @@ public class UserController extends CommonController{
 		return ResponseEntity.noContent().build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADM','ROLE_COMMON')")
 	@GetMapping(value = "/{id}")
     public ResponseEntity<UserResponseDTO> findById(@PathVariable Long id){
 		UserResponseDTO userDto = modelMapper.map(userService.findById(id), UserResponseDTO.class);//UserTransfomer.getDtoFromModel(userService.findById(id));
         return ResponseEntity.ok().body(userDto);
     }
 	
+	@PreAuthorize("hasRole('ROLE_ADM')")
 	@PostMapping(value = "/page")
 	public ResponseEntity<Page<UserResponseDTO>> findPage(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
@@ -62,6 +68,7 @@ public class UserController extends CommonController{
 		
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADM')")
 	@GetMapping
 	public ResponseEntity<List<UserResponseDTO>>findAll(){
 		List<User> lista = userService.findAll();

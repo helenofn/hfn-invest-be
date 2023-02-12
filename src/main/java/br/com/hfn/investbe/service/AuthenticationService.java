@@ -49,7 +49,7 @@ public class AuthenticationService{
 	private List<GrantedAuthority> getRoles(User user){
 		List<GrantedAuthority> lista = new ArrayList<>();
 		for (Role role : user.getRoles()) {
-			lista.add(new SimpleGrantedAuthority(role.getName()));
+			lista.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
 		}
 		return lista;
 	}

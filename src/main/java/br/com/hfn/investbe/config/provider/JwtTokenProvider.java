@@ -1,10 +1,10 @@
 package br.com.hfn.investbe.config.provider;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Component;
 
 import br.com.hfn.investbe.config.dto.UserAuthDTO;
@@ -47,9 +47,11 @@ public class JwtTokenProvider {
 	
 	public String createToken(String username, Collection<? extends GrantedAuthority> roles) {
 		Claims claims = Jwts.claims().setSubject(username);
-		claims.put(ROLES, roles);
-		
-		
+		String strRoles = roles.stream().map(role -> new String(role.getAuthority())).collect(Collectors.joining(","));
+		claims.put(ROLES, strRoles);
+		//claims.put(ROLES, AuthorityUtils.createAuthorityList(strRoles));
+		//claims.put(ROLES, roles);
+				
 		Date valid = DateTimeUtil.getNowSumTimeDate(Long.valueOf(expereTime));
 		
 		return Jwts.builder()
@@ -92,9 +94,11 @@ public class JwtTokenProvider {
 	
 	public Collection<GrantedAuthority> getRoles(String token){
 		Claims claims = getJwtBody(token);
-		return Arrays.stream(claims.get(ROLES).toString().split(","))
+		List<GrantedAuthority> roleUser = AuthorityUtils.commaSeparatedStringToAuthorityList(claims.get(ROLES).toString());
+		return roleUser;
+		/*return Arrays.stream(claims.get(ROLES).toString().split(","))
 				.map(SimpleGrantedAuthority::new)
-				.collect(Collectors.toList());
+				.collect(Collectors.toList());*/
 	}
 	
 	

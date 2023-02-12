@@ -21,7 +21,6 @@ import br.com.hfn.investbe.request.dto.BrokerInsertRequestDTO;
 import br.com.hfn.investbe.request.dto.BrokerUpdateRequestDTO;
 import br.com.hfn.investbe.response.dto.BrokerResponseDTO;
 import br.com.hfn.investbe.service.BrokerService;
-import br.com.hfn.investbe.validator.annotations.BrokerUpdate;
 import lombok.RequiredArgsConstructor;
 
 @Validated
