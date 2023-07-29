@@ -16,6 +16,8 @@ import br.com.hfn.investbe.enums.FinancialTransactionEventTypeEnum;
 import br.com.hfn.investbe.enums.RoleEnum;
 import br.com.hfn.investbe.enums.StatusEnum;
 import br.com.hfn.investbe.enums.UserStatusEnum;
+import br.com.hfn.investbe.financial.asset.event.service.FinancialAssetEventDividendService;
+import br.com.hfn.investbe.financial.asset.event.service.FinancialAssetEventService;
 import br.com.hfn.investbe.model.Adress;
 import br.com.hfn.investbe.model.AdressCity;
 import br.com.hfn.investbe.model.AdressCountry;
@@ -23,6 +25,10 @@ import br.com.hfn.investbe.model.AdressState;
 import br.com.hfn.investbe.model.Broker;
 import br.com.hfn.investbe.model.Company;
 import br.com.hfn.investbe.model.FinancialAsset;
+import br.com.hfn.investbe.model.FinancialAssetEvent;
+import br.com.hfn.investbe.model.FinancialAssetEventBonusShare;
+import br.com.hfn.investbe.model.FinancialAssetEventDividend;
+import br.com.hfn.investbe.model.FinancialAssetEventJCP;
 import br.com.hfn.investbe.model.FinancialTransaction;
 import br.com.hfn.investbe.model.Role;
 import br.com.hfn.investbe.model.StockExchange;
@@ -77,7 +83,10 @@ public class TestConfig {
 	private WalletService walletService;
 	@Autowired
 	private FinancialTransactionTypeRepository financialTransactionTypeRepository;
-	
+	@Autowired
+	private FinancialAssetEventDividendService financialAssetEventDividendService;
+	@Autowired
+	private FinancialAssetEventService financialAssetEventService;
 	
 	@Value("${api.aplhavantage.key}")
 	private String alphavantageKey;
@@ -210,6 +219,57 @@ public class TestConfig {
 		walletService.addTransactions(Arrays.asList(ft1,ft2,ft3,ft4));
 		walletService.save(wallet);
 		
+		
+		FinancialAssetEventDividend objPai = new FinancialAssetEventDividend();
+		objPai.setTeste("event pai");
+		objPai.setTsOcurrence(LocalDateTime.now());
+		
+		FinancialAssetEventDividend obj = new FinancialAssetEventDividend();
+		obj.setTeste("event dividend");
+		obj.setTsOcurrence(LocalDateTime.now());
+		
+		FinancialAssetEventJCP objJcp = new FinancialAssetEventJCP();
+		objJcp.setTesteJcp("Sou JCP");
+		objJcp.setTsOcurrence(LocalDateTime.now());
+		objJcp.setFinancialAsset(abev3);
+		
+		FinancialAssetEventBonusShare bonus = new FinancialAssetEventBonusShare();
+		bonus.setFinancialAsset(abev3);
+		bonus.setQtdStockBonus(5);
+		bonus.setQtdStockEach(1);
+		bonus.setVlUnitCost(12.52D);
+		bonus.setTsOcurrence(LocalDateTime.now());
+		
+		financialAssetEventDividendService.save(obj);
+		financialAssetEventService.save(objPai);
+		financialAssetEventService.save(objJcp);
+		financialAssetEventService.save(bonus);
+		
+		FinancialAssetEventDividend objC = financialAssetEventDividendService.findById(1L);
+		FinancialAssetEvent objCPai = financialAssetEventService.findById(1L);
+		FinancialAssetEventJCP jcp = (FinancialAssetEventJCP)financialAssetEventService.findById(3L);
+		FinancialAssetEvent unknowChildren = financialAssetEventService.findById(3L);
+		FinancialAssetEventBonusShare bonusC = (FinancialAssetEventBonusShare)financialAssetEventService.findById(4L);
+		
+		if(unknowChildren instanceof FinancialAssetEvent) {
+			System.out.println("É o Pai");
+		}
+		
+		if(unknowChildren instanceof FinancialAssetEventJCP) {
+			System.out.println("É JCP");
+		}
+		
+		if(unknowChildren instanceof FinancialAssetEventDividend) {
+			System.out.println("É Dividend");
+		}
+		
+		System.out.println("Dividend: " + objC.getTeste());
+		System.out.println("Dividend Pai: " + objC.getTsOcurrence());
+		System.out.println("Pai: " + objCPai.getTsOcurrence());
+		System.out.println("Filho: " + ((FinancialAssetEventDividend)objCPai).getTeste());
+		System.out.println("JCP: " + jcp.getTesteJcp());
+		System.out.println("Bonus" + bonusC.getVlUnitCost());
+		System.out.println("Bonus" + bonusC.getFinancialAsset().getCompany().getName());
 		
 		return true;
 	}
